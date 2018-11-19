@@ -47,3 +47,7 @@ Edited devlog
 
 ryanA -- 2018-11-18 23:44
 Added app.py template to work off of later
+
+
+ryanA -- 2018-11-19 12:24
+Made Guardian testing folder to explore API
