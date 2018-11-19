@@ -1,1 +1,1 @@
-# <TEAM_NAME>
+# Team RanQuoR_Turkey
