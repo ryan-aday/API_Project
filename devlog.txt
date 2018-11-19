@@ -51,3 +51,7 @@ Added app.py template to work off of later
 
 ryanA -- 2018-11-19 12:24
 Made Guardian testing folder to explore API
+
+rachelN -- 2018-11-19 18:24 
+Made weather_tests folder to explore OpenWeatherMap API. 
+Currently includes weather, description of weather, temperature in F, icon of weather, low and high temps. 
