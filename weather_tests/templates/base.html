@@ -8,6 +8,8 @@
     <!-- USES FONT AWESOME ICONS -->
     <!-- https://fontawesome.com/icons?d=gallery&c=weather -->
     <!-- BASIC USE https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use -->
+
+    <!-- WEATHER ICON CODES https://openweathermap.org/weather-conditions -->
     
     <title>{{title}}</title>
 
@@ -24,12 +26,12 @@
 	    <h5 class="card-title">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h5>
 	    <h6 class="card-subtitle mb-2 text-muted">{% for i in weather_main %}{{ i.description }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
 	    <div class="row">
-              <div class="col-sm"><h1>{{temp_now}}°F</h1></div>
+              <div class="col-sm"><h1>{{temp_now|int}}°F</h1></div>
 	      <div class="col-sm text-right"><h1>{% for i in weather_main %}<span class="fas fa-{{icons[i.icon]}}"></span>{% if not loop.last %} {% endif %}{% endfor %}<h1></div>
             </div>
 	    <div class="row">
-              <div class="col-sm"><span class="fas fa-temperature-high text-primary"></span> {{temp_min}}°F</div>
-	      <div class="col-sm"><span class="fas fa-temperature-low text-danger"></span> {{temp_max}}°F</div>
+              <div class="col-sm"><span class="fas fa-temperature-high text-primary"></span> {{temp_min|int}}°F</div>
+	      <div class="col-sm"><span class="fas fa-temperature-low text-danger"></span> {{temp_max|int}}°F</div>
             </div>
 	  </div>
 	</div>
