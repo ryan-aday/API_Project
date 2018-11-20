@@ -4,8 +4,10 @@ from flask import Flask, render_template, request, redirect, flash
 app = Flask(__name__)  # create instance of class Flask
 app.secret_key = "asdfadsfjskdfjqweruioqwerjlkasdjfl;asdjfadlksfkjlfdsjkldfsjkl"
 
-URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q=10007,us&units=imperial"
-URL_QUERY = "url="
+IPAPI = "https://ipapi.co/json/"
+
+URL_STUB = "http://api.openweathermap.org/data/2.5/weather?units=imperial&"
+URL_QUERY = "q="
 API_KEY = "&appid=87bdad31331cad64c1efc0c13526c6f8"
 
 TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
@@ -23,7 +25,13 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
 
 @app.route("/")
 def root():
-    response = urllib.request.urlopen(URL_STUB + API_KEY)
+    f = urllib.request.urlopen(IPAPI).read()
+    d = json.loads(f)
+    CITY = d["city"]
+
+    print(CITY)
+    
+    response = urllib.request.urlopen(URL_STUB + URL_QUERY + CITY + API_KEY)
     o = json.loads(response.read())
 
     print(list(o.keys()))
@@ -41,6 +49,7 @@ def root():
                                temp_max = o['main']['temp_max'],
                                icons = icons
         )
+    
     else: 
         print(o['weather'])
                     
