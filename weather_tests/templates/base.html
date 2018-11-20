@@ -17,7 +17,7 @@
 
   <body>
 
-    <div class="container">
+    <div class="container" style="margin-top:50px;">
       <div id = "home">
 	<div class="card" style="width: 18rem;">
 	  <div class="card-header"><h1>{{title}}</h1></div>
@@ -27,11 +27,11 @@
 	    <h6 class="card-subtitle mb-2 text-muted">{% for i in weather_main %}{{ i.description }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
 	    <div class="row">
               <div class="col-sm"><h1>{{temp_now|int}}°F</h1></div>
-	      <div class="col-sm text-right"><h1>{% for i in weather_main %}<span class="fas fa-{{icons[i.icon]}}"></span>{% if not loop.last %} {% endif %}{% endfor %}<h1></div>
+	      <div class="col-sm text-right"><h1>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}<h1></div>
             </div>
 	    <div class="row">
-              <div class="col-sm"><span class="fas fa-temperature-high text-primary"></span> {{temp_min|int}}°F</div>
-	      <div class="col-sm"><span class="fas fa-temperature-low text-danger"></span> {{temp_max|int}}°F</div>
+              <div class="col-sm"><i class="fas fa-temperature-high text-primary"></i> {{temp_min|int}}°F</div>
+	      <div class="col-sm"><i class="fas fa-temperature-low text-danger"></i> {{temp_max|int}}°F</div>
             </div>
 	  </div>
 	</div>
