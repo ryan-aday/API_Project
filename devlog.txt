@@ -57,3 +57,7 @@ Made weather_tests folder to explore OpenWeatherMap API.
 Currently includes weather, description of weather, temperature in F, icon of weather, low and high temps.
 Temperatures cast to integers. 
 Uses IPAPI to get location from IP address, passes to OpenWeatherMap API. 
+
+claraM -- 2018-11-19 22:50
+Worked on implementing news API from The Guardian. Added a form that will be usd to select which category of news will be used.
+
