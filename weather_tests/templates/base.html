@@ -30,8 +30,8 @@
 	      <div class="col-sm text-right"><h1>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}<h1></div>
             </div>
 	    <div class="row">
-              <div class="col-sm"><i class="fas fa-temperature-high text-primary"></i> {{temp_min|int}}°F</div>
-	      <div class="col-sm"><i class="fas fa-temperature-low text-danger"></i> {{temp_max|int}}°F</div>
+              <div class="col-sm"><i class="fas fa-temperature-high text-primary"></i> {{temp_max|int}}°F</div>
+	      <div class="col-sm"><i class="fas fa-temperature-low text-danger"></i> {{temp_min|int}}°F</div>
             </div>
 	  </div>
 	</div>
