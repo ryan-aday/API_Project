@@ -43,22 +43,22 @@ K21 -- Bootstrap Example
 	    <!-- Dropdown (Part of Navbar) -->
 		<li class="nav-item dropdown">
 		  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">
-		    Updates
+		    Menu
 		  </a>
 		  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		    <a class="dropdown-item" href="#">News</a>
-		    <a class="dropdown-item" href="#">Weather</a>
-        <a class="dropdown-item" href="#">Stocks</a>
+		    <a class="dropdown-item" href="#updates">Updates</a>
+		    <a class="dropdown-item" href="#news">Current Events</a>
+        <a class="dropdown-item" href="#forms">User Input</a>
 		  </div>
 		</li>
 	      </ul>
 	    </div>
 	  </nav>
 
-		<div class="container">
+		<div class="container" id="updates" style="">
+      <div  class="d-flex justify-content-center">
 			<div class="row">
-				<div class="col-6">
-					 <!-- Card -->
+					 <!-- Weather Card -->
            <div class="card" style="width: 18rem;">
          	   <div class="card-header"><h1>{{title}}</h1></div>
          	   <div class="card-body">
@@ -75,51 +75,76 @@ K21 -- Bootstrap Example
          	   </div>
          	 </div>
 
-				</div>
+            <!--Stock Card -->
+           <div class="card" style="width: 18rem;">
+              <div class="card-header">
+                  <h1>{{stock_code}}</h1>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{stock_name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
+
+               </div>
+                <div class="row">
+                 <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{curr_price}} </div>
+                 <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{chan_price}}</div>
+                 <div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{per_change}}%</div>
+               </div>
+              </div>
+            </div>
+      </div>
 			</div>
 		</div>
 
+    <!--News -->
+    <div class="container" id="news">
+					 <!-- Jumbootron -->
+					<div class="jumbotron">
+			  	    <h1 class="display-6" style="font-weight:bold; color: #000080;">These are your most current events!</h1>
+			  	    <p class="lead">{{news_title}}</p>
+			  	    <hr class="my-6">
+				      <ul class="list-group">
+			             <li class="list-group-item list-group-item-info">
+                      <a href={{article_link}}>{{news_title}}</a>
+                   </li>
+                   <li class="list-group-item list-group-item-info">
+                       <p>{{date_pub}}
+                    </li>
+				      </ul>
+				      <br>
+				  </div>
+    </div>
+
 	  <!-- Form -->
 
-	  <div class="container">
+	  <div class="container" id="forms">
 	    <br>
-	    <div class="row">
 
-	      <div class="col-6">
-		 			<h3 style="color:#000080;">This is a column </h3>
-					Containers and columns allow for neat structures in boostrap.
-	      </div>
-	      <div class="col-6">
 	  			<div class="container-fluid">
-            <h3 style="color:#000080;"> Consider donating to our website! </h3>
-            <h5> Through this form </h5>
+            <h3 style="color:#000080;"> Modify your Daily Updates! </h3>
+            <h5> You can enter your location/zip code to edit the weather results, and you can also add stock codes to change the stocks to preview.  </h5>
         	</div>
 	  			<form>
 	    		<div class="form-group">
-						<label for="Name">Name</label>
-						<input type="text" class="form-control" id="name" placeholder="Enter your name...">
+						<label for="Name">Location Name/Zip Code (Tokyo, 11374, etc.)</label>
+						<input type="text" class="form-control" id="name" placeholder="Enter your location/zip code here...">
 						<br>
 
 						<div class="form-group">
-		  				<label for="creditcard">Credit Card Number</label>
-		  				<input type="text" class="form-control" id="creditcard" placeholder="Enter your credit card number...">
-						</div>
-						<div class="form-group form-check">
-		  				<input type="checkbox" class="form-check-input" id="rememberme">
-		  				<label class="form-check-label" for="exampleCheck1">Remember me checkbox</label>
+		  				<label for="creditcard">Stock Code</label>
+		  				<input type="text" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
 						</div>
 						<button type="submit" class="btn btn-primary">Submit</button>
 	    		</div>
 	  			</form>
 	      </div>
-	    </div>
-	  </div>
+
 
 	  <br>
 	  <br>
 
 	  <div class = "row justify-content-center">
-	  &copy; Ryan Aday, Clara Mohri (Team yeet)
+	  &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
 
    </div>
   </div>

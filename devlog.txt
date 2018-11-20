@@ -12,7 +12,7 @@ Use keyboard shortcut to jump to end,
  modify appropriately.
 Each entry should begin with the following format:
  firstL -- TIMESTAMP\n
-e.g.: 
+e.g.:
 clydeS -- 2999-12-31 23:59
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -25,13 +25,13 @@ pd 7
 ---------------------
 Use of API for daily updates in news, weather, and train arrivals
 
- ______   ______   __   __   __       ______   _______     
-/_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\    
-\:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__  
- \:\ \ \ \\:\/___/\\:\ \\ \ \\:\ \    \:\ \ \ \\:\ /____/\ 
-  \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/ 
-   \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \ 
-    \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/ 
+ ______   ______   __   __   __       ______   _______
+/_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
+\:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__
+ \:\ \ \ \\:\/___/\\:\ \\ \ \\:\ \    \:\ \ \ \\:\ /____/\
+  \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/
+   \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \
+    \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
@@ -53,7 +53,12 @@ ryanA -- 2018-11-19 12:24
 Made Guardian testing folder to explore API
 
 rachelN -- 2018-11-19 21:00
-Made weather_tests folder to explore OpenWeatherMap API. 
+Made weather_tests folder to explore OpenWeatherMap API.
 Currently includes weather, description of weather, temperature in F, icon of weather, low and high temps.
-Temperatures cast to integers. 
-Uses IPAPI to get location from IP address, passes to OpenWeatherMap API. 
+Temperatures cast to integers.
+Uses IPAPI to get location from IP address, passes to OpenWeatherMap API.
+
+ryanA -- 2018-11-19 23:32
+Created basic template, used Rachel's example to test template using app.py.
+Decided on waiting for Tuesday to verity if we can use a certain stock API.
+Temperature API decided upon.
