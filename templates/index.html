@@ -10,7 +10,10 @@ K21 -- Bootstrap Example
    	<meta charset="utf-8">
 		<!-- CDN --->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		<!-- Title Icon -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- Title Icon -->
 		<link rel="icon" type="image/png" href="http://www.stuycs.org/_/rsrc/1519678307617/config/customLogo.gif?revision=2">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
@@ -36,19 +39,16 @@ K21 -- Bootstrap Example
 	    <!-- Link on Navbar -->
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav mr-auto">
-		<li class = "nav-item">
-		  <a class = "nav-link" href = "#" style = "color:white; font-weight:bold;">Link1</a>
-		</li>
+
 	    <!-- Dropdown (Part of Navbar) -->
 		<li class="nav-item dropdown">
 		  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">
-		    Dropdown Menu
+		    Updates
 		  </a>
 		  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		    <a class="dropdown-item" href="#">Link1</a>
-		    <a class="dropdown-item" href="#">Link2</a>
-		    <div class="dropdown-divider"></div>
-		    <a class="dropdown-item" href="#">Separate Link</a>
+		    <a class="dropdown-item" href="#">News</a>
+		    <a class="dropdown-item" href="#">Weather</a>
+        <a class="dropdown-item" href="#">Stocks</a>
 		  </div>
 		</li>
 	      </ul>
@@ -58,27 +58,24 @@ K21 -- Bootstrap Example
 		<div class="container">
 			<div class="row">
 				<div class="col-6">
-					 <!-- Jumbootron -->
-					<div class="jumbotron">
-			  	    <h1 class="display-6" style="font-weight:bold; color: #000080;">Welcome to Stuy Softdev!</h1>
-			  	    <p class="lead">This is a jumbotron</p>
-			  	    <hr class="my-6">
-			  	    <p>
-				      <div class = "col-md-5"
-				      <ul class="list-group">
-					<li class="list-group-item list-group-item-info">A list item that describes our website</li>
-				      </ul>
-				      <br>
-				      	  </div>
-				      <a class="btn btn-primary btn-lg" href="http://www.stuycs.org" role="button">A button!</a>
-				  </div>
+					 <!-- Card -->
+           <div class="card" style="width: 18rem;">
+         	   <div class="card-header"><h1>{{title}}</h1></div>
+         	   <div class="card-body">
+         	     <h5 class="card-title">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h5>
+         	     <h6 class="card-subtitle mb-2 text-muted">{% for i in weather_main %}{{ i.description }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
+         	     <div class="row">
+                 <div class="col-sm align-bottom"><h1>{{temp_now|int}}°F</h1></div>
+         	       <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}<h2></div>
+               </div>
+         	     <div class="row">
+                 <div class="col-sm align-bottom"><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</div>
+         	       <div class="col-sm align-bottom"><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</div>
+               </div>
+         	   </div>
+         	 </div>
 
 				</div>
-
-				<div class="col-6">
-				<img class="d-block w-100" src="https://i.ytimg.com/vi/-mXBI3Rx8c8/maxresdefault.jpg" alt="Dnk Memes"/>
-				</div>
-
 			</div>
 		</div>
 
