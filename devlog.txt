@@ -62,3 +62,8 @@ ryanA -- 2018-11-19 23:32
 Created basic template, used Rachel's example to test template using app.py.
 Decided on waiting for Tuesday to verity if we can use a certain stock API.
 Temperature API decided upon.
+
+qianZ -- 2018-11-20 01:00
+Made stock_test folder to explore the two stock apis (IEX, Alpha Vantage)
+methods to search in alpha vantage, and pulling down data from IEX, templates to choose stocks
+To Do: figure out how to retrieve checkbox info!!! & other things.
