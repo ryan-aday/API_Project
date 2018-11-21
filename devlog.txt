@@ -76,3 +76,7 @@ changed checkbox to radio; debug how to display multiple stocks, put stock folde
 
 ryanA -- 2018-11-19 23:32
 Finished design.pdf.  Still have problems with Weather API on personal laptop, will download new key to try later.
+
+rachelN -- 2018-11-20 10:00
+Fixed weather card in templates
+
