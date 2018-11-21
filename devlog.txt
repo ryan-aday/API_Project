@@ -67,3 +67,6 @@ qianZ -- 2018-11-20 01:00
 Made stock_test folder to explore the two stock apis (IEX, Alpha Vantage)
 methods to search in alpha vantage, and pulling down data from IEX, templates to choose stocks
 To Do: figure out how to retrieve checkbox info!!! & other things.
+
+claraM -- 2018-11-20 20:30
+Continued working on contents of news_tests folder. Made buttons that are according to the different current categories of news, such that they don't repeat. Worked on form input handling, although form is still not functional yet.
