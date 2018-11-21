@@ -70,3 +70,6 @@ To Do: figure out how to retrieve checkbox info!!! & other things.
 
 claraM -- 2018-11-20 20:30
 Continued working on contents of news_tests folder. Made buttons that are according to the different current categories of news, such that they don't repeat. Worked on form input handling, although form is still not functional yet.
+
+qianZ -- 2018-11-20 23:39
+changed checkbox to radio; debug how to display multiple stocks, put stock folder's content to main webpage

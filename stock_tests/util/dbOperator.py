@@ -1,37 +1,43 @@
 import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
 
-#==========================================================
 
-DB_FILE="./data/<intended_name>"      #<SUBSTITUTE FILE NAME>
-db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
-c = db.cursor()               #facilitate db ops
 
-#==========================================================
-#INSERT YOUR POPULATE CODE IN THIS ZONE
+def createUSER(user):
+    DB_FILE="./data/stock.db"      
+    db = sqlite3.connect(DB_FILE) 
+    c = db.cursor()               
+    cmd = "CREATE TABLE {}(symbol TEXT)".format(user)
+    c.execute(cmd)    #run SQL statement
+    db.commit() #save changes
+    db.close()  #close database
+    return
 
-cmd = "CREATE TABLE table_name(name TEXT, age INTEGER, id INTEGER)"
+def modify(user, symbol, action):
+    """modifies entry symbol in user's table, action =1 add, =-1 delete"""
+    DB_FILE="./data/stock.db"      
+    db = sqlite3.connect(DB_FILE) 
+    c = db.cursor()       
+    if action > 0:
+        symb = [(symbol)]
+        cmd = "INSERT INTO [{}] VALUES(?)".format(user)
+        c.executemany(cmd, symb)
+    else:
+        cmd = "DELETE FROM [{}] WHERE symbol = '{}'".format(user, symbol)
+        c.execute(cmd)
+        
+    db.commit() #save changes
+    db.close()  #close database
+    return
 
-"""INSERT"""
-#cmd = "INSERT INTO [{}] VALUES(?,?)".format(user)
-
-"""SELECT"""
-#cmd = "SELECT name FROM sqlite_master WHERE name = '{}'".format(storyName)
-"""how to extract table names"""
-#cmd = "SELECT * FROM '{}' WHERE authors = '{}'".format(storyname, username)
-#      'SELECT name FROM sqlite_master WHERE type = "table" '
-#result = c.execute(cmd).fetchall() #listyfy
-"""
-if result:#list is not empty
-        return True
-    # Otherwise, the user has not contributed. (Return false).
-    return False
-"""
-
-#build SQL stmt, save as string
-c.execute(cmd)    #run SQL statement
-
-#==========================================================
-
-db.commit() #save changes
-db.close()  #close database
+def symbolOf(user):
+    DB_FILE="./data/stock.db"      
+    db = sqlite3.connect(DB_FILE) 
+    c = db.cursor()  
+    cmd = "SELECT * FROM '{}'".format(user)
+    l = c.execute(cmd).fetchall()
+    regularList=[]
+    for entry in l:
+        regularList.append(entry)
+    return regularList
+    
