@@ -1,160 +1,156 @@
-<!--Team Yeet-
-Ryan Aday, Clara Mohri
-SoftDev1 pd7
-K21 -- Bootstrap Example
-2018-11-5-->
-
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-   	<meta charset="utf-8">
-		<!-- CDN --->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <head>
+    <meta charset="utf-8">
+    <!-- CDN --->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <!-- Title Icon -->
-		<link rel="icon" type="image/png" href="http://www.stuycs.org/_/rsrc/1519678307617/config/customLogo.gif?revision=2">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<style>
-		  h1{
-		  color: #7fffd4;
-			}
-		  .dropdown:hover .dropdown-menu {
-    		  display: block;
-		  }
-		</style>
-   		<title> Daily Updates! </title>
-  	</head>
-  	<body style="font-family=Verdana, sans-serif";>
+    <link rel="icon" type="image/png" href="http://www.stuycs.org/_/rsrc/1519678307617/config/customLogo.gif?revision=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      h1{
+      color: #7fffd4;
+      }
+      .dropdown:hover .dropdown-menu {
+      display: block;
+      }
+    </style>
+    <title> Daily Updates! </title>
+  </head>
+  <body style="font-family=Verdana, sans-serif";>
 
-	  <!-- Navbar -->
-	  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #008080;">
-	    <a class="navbar-brand" href="#" style="color: white; font-weight:bold;">Daily Updates!</a>
-	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	      <span class="navbar-toggler-icon"></span>
-	    </button>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #008080;">
+      <a class="navbar-brand" href="#" style="color: white; font-weight:bold;">Daily Updates!</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>
 
 
-	    <!-- Link on Navbar -->
-	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	      <ul class="navbar-nav mr-auto">
+      <!-- Link on Navbar -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	<ul class="navbar-nav mr-auto">
 
-	    <!-- Dropdown (Part of Navbar) -->
-		<li class="nav-item dropdown">
-		  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">
-		    Menu
-		  </a>
-		  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		    <a class="dropdown-item" href="#updates">Updates</a>
-		    <a class="dropdown-item" href="#news">Current Events</a>
-        <a class="dropdown-item" href="#forms">User Input</a>
-		  </div>
-		</li>
-	      </ul>
+	  <!-- Dropdown (Part of Navbar) -->
+	  <li class="nav-item dropdown">
+	    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">
+	      Menu
+	    </a>
+	    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	      <a class="dropdown-item" href="#updates">Updates</a>
+	      <a class="dropdown-item" href="#news">Current Events</a>
+              <a class="dropdown-item" href="#forms">User Input</a>
 	    </div>
-	  </nav>
+	  </li>
+	</ul>
+      </div>
+    </nav>
 
-	  <div class="container" id="updates" style="">
-	    <div  class="d-flex justify-content-center">
+    <div class="container">
+      <div  class="d-flex justify-content-center">
+	<div class="row">
+	  <!-- Weather Card -->
+	  <div class="card" style="width: 18rem;">
+            <div class="card-header"><h1 style="color: #000000;">{{title}}</h1></div>
+            <div class="card-body">
+              <h5 class="card-title">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{% for i in weather_main %}{{ i.description }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
+              <div class="row">
+                <div class="col-sm align-bottom"><h1 style="color: #000000;">{{temp_now|int}}°F</h1></div>
+         	<div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div>
+	      </div>
+              <div class="row">
+                <div class="col-sm align-bottom"><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</div>
+         	<div class="col-sm align-bottom"><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</div>
+	      </div>
+            </div>
+          </div>
+	</div>
+      </div>
+      <div class="container">
+	<div class="row">
+	  <!--Stock Card -->
+	  {% for item in entry %}
+	  <div class="card" style="width: 18rem;">
+	    <div class="card-header">
+              <h1>{{item[0]}}</h1><!-- stock code -->
+	    </div>
+	    <div class="card-body">
+              <h5 class="card-title">{{stock_name}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
 	      <div class="row">
-		<!-- Weather Card -->
-		<div class="card" style="width: 18rem;">
-         	  <div class="card-header"><h1>{{title}}</h1></div>
-         	  <div class="card-body">
-         	    <h5 class="card-title">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h5>
-         	    <h6 class="card-subtitle mb-2 text-muted">{% for i in weather_main %}{{ i.description }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
-         	    <div class="row">
-                      <div class="col-sm align-bottom"><h1>{{temp_now|int}}°F</h1></div>
-         	      <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div>
-		    </div>
-         	    <div class="row">
-                      <div class="col-sm align-bottom"><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</div>
-         	      <div class="col-sm align-bottom"><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</div>
-		    </div>
-         	  </div>
-         	</div>
-
-		<!--Stock Card -->
-		{% for item in entry %}
-		<div class="card" style="width: 18rem;">
-		  <div class="card-header">
-                    <h1>{{item[0]}}</h1><!-- stock code -->
-		  </div>
-		  <div class="card-body">
-                    <h5 class="card-title">{{stock_name}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
-		    
-		  </div>
-		  <div class="row">
-                    <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- current price -->
-                    <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- price change-->
-                    <div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
-		  </div>
-		</div>
-		{% endfor %}
-
-		<br>
+		<div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- current price -->
+		<div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- price change-->
+		<div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
 	      </div>
 	    </div>
 	  </div>
-	  <p> “Stock Data provided for free by <a href="https://iextrading.com/developer/">IEX</a>. View <a href="https://iextrading.com/developer">IEX’s Terms of Use</a>.\</p>
+	  {% endfor %}
 
-	  
+	  <br>
+	</div>
+      </div>
+    </div>
+    <p>Stock Data provided for free by <a href="https://iextrading.com/developer/">IEX</a>. View <a href="https://iextrading.com/developer">IEX’s Terms of Use</a>.</p>
+
+    
 
     <!--News -->
     <div class="container" id="news">
-					 <!-- Jumbootron -->
-					<div class="jumbotron">
-			  	    <h1 class="display-6" style="font-weight:bold; color: #000080;">These are your most current events!</h1>
-			  	    <p class="lead">{{news_title}}</p>
-			  	    <hr class="my-6">
-				      <ul class="list-group">
-			             <li class="list-group-item list-group-item-info">
-                      <a href={{article_link}}>{{news_title}}</a>
-                   </li>
-                   <li class="list-group-item list-group-item-info">
-                       <p>{{date_pub}}
-                    </li>
-				      </ul>
-				      <br>
-				  </div>
+      <!-- Jumbootron -->
+      <div class="jumbotron">
+	<h1 class="display-6" style="font-weight:bold; color: #000080;">These are your most current events!</h1>
+	<p class="lead">{{news_title}}</p>
+	<hr class="my-6">
+	<ul class="list-group">
+	  <li class="list-group-item list-group-item-info">
+            <a href={{article_link}}>{{news_title}}</a>
+          </li>
+          <li class="list-group-item list-group-item-info">
+            <p>{{date_pub}}
+          </li>
+	</ul>
+	<br>
+      </div>
     </div>
 
-	  <!-- Form -->
+    <!-- Form -->
 
-	  <div class="container" id="forms">
-	    <br>
+    <div class="container" id="forms">
+      <br>
 
-	    <div class="container-fluid">
-              <h3 style="color:#000080;"> Modify your Daily Updates! </h3>
-              <h5> You can enter your location/zip code to edit the weather results, and you can also add stock codes to change the stocks to preview.  </h5>
-            </div>
-	    <form action="/choices">
-	      <div class="form-group" >
-		<label for="Name">Location Name/Zip Code (Tokyo, 11374, etc.)</label>
-		<input type="text" class="form-control" id="name" placeholder="Enter your location/zip code here...">
-		<br>
+      <div class="container-fluid">
+        <h3 style="color:#000080;"> Modify your Daily Updates! </h3>
+        <h5> You can enter your location/zip code to edit the weather results, and you can also add stock codes to change the stocks to preview.  </h5>
+      </div>
+      <form action="/choices">
+	<div class="form-group" >
+	  <label for="Name">Location Name/Zip Code (Tokyo, 11374, etc.)</label>
+	  <input type="text" class="form-control" id="name" placeholder="Enter your location/zip code here...">
+	  <br>
 
-		<div class="form-group">
-		  <label for="creditcard">Stock Code</label>
-		  (some stocks that show up does not exist in our api)
-		  <input name="creditcard" type="text" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
-		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
-	      </div>
-	    </form>
+	  <div class="form-group">
+	    <label for="creditcard">Stock Code</label>
+	    (some stocks that show up does not exist in our api)
+	    <input name="creditcard" type="text" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
 	  </div>
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</div>
+      </form>
+    </div>
 
 
-	  <br>
-	  <br>
+    <br>
+    <br>
 
-	  <div class = "row justify-content-center">
-	  &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
+    <div class = "row justify-content-center">
+      &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
 
-   </div>
-  </div>
+    </div>
+</div>
 </body>
 
 
