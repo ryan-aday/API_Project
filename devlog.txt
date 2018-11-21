@@ -73,3 +73,6 @@ Continued working on contents of news_tests folder. Made buttons that are accord
 
 qianZ -- 2018-11-20 23:39
 changed checkbox to radio; debug how to display multiple stocks, put stock folder's content to main webpage
+
+ryanA -- 2018-11-19 23:32
+Finished design.pdf.  Still have problems with Weather API on personal laptop, will download new key to try later.
