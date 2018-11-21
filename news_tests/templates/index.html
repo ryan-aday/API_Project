@@ -4,11 +4,12 @@
         <title></title>
     </head>
     <body>
-      <h1> The Guardian </h1>
-
+      <h1> The Guardian </h1>      
+      
       <form action = "/category" method = "POST">
-	<input type = "radio" name = "category" value = "sports">Sports<br>
-	<input type = "radio" name = "category" value = "politics">Politics<br>
+	{% for i in section %}	
+	<input type = "radio" name = "category" value ={{i}}>{{i}}<br>
+	{% endfor %}
 	<input type = "submit" value = "Submit">
       </form>
       {{section}}
