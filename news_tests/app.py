@@ -21,21 +21,14 @@ def index():
        s.add(i['sectionName'])
     return render_template("index.html", data=data, section = s)
 
+#get category, render in template
 @app.route("/category", methods = ["POST"])
 def get_category():
     global data, l
     if request.method == "POST":
-        for i in l:
-            print(i['sectionName'])
-            if i['sectionName'] == request.form.get('category'):
-                print('found')
-                print(i['webTitle'], i['sectionName'])
-        return request.form.get('category')
-        if request.form.get('category') == 'Society':        
-            return render_template("index.html", data = data, section = 'SPORT')
-        if request.form.get('category') == None:
-            return redirect(url_for("index"))
-    return("hello")
+        category = request.form.get('category')
+        return render_template("selection.html", category = category, data = data)
+
 
 if __name__ == "__main__":
     app.debug = True

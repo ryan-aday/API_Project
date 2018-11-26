@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+
+  <title> Your chosen category</title>
+
+  <head>The news category you choose is: </head>
+  <br>
+  <body>
+    {{category}}
+
+    <br><br>
+    {%for i in data['response']['results'] %}
+    {%if i['sectionName'] == category %}
+    <a href = {{i['webUrl']}}>{{i['webTitle']}}</a>
+    <br><br>
+    {%endif%}
+
+    {%endfor%}
+  </body>
+  
+
+
+</html>

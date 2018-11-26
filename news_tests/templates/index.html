@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Choose your news category</title>
     </head>
     <body>
       <h1> The Guardian </h1>      
       
       <form action = "/category" method = "POST">
 	{% for i in section %}	
-	<input type = "radio" name = "category" value ={{i}}>{{i}}<br>
+	<input type = "radio" name = "category" value = "{{i}}" > {{i}} <br>
 	{% endfor %}
 	<input type = "submit" value = "Submit">
       </form>
+ <!-- {{ data['response']['results']}}
       {{section}}
       
-      <!-- {{ data['response']['results']}} -->
+     
+
       <br>
       {% for x in data['response']['results'] %}
       {{ x['webTitle']}} --
@@ -28,6 +30,6 @@
       <p>{{ data['response']['results'][0][ 'sectionName'] }}</p>
       <a href = 'https://www.theguardian.com/politics/live/2018/nov/15/brexit-deal-theresa-may-takes-agreement-to-parliament-politics-live'>{{ data['response']['results'][0]['webTitle'] }}</a>
       <p>Time published: {{ data['response']['results'][0]['webPublicationDate'] }}</p>
-	
+-->	
     </body>
 </html>
