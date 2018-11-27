@@ -61,6 +61,7 @@ def root():
                                temp_min = o['main']['temp_min'],
                                temp_max = o['main']['temp_max'],
                                icons = icons,
+                               placeholder = CITY,
                                current_location = d["city"]
         )
     
@@ -73,6 +74,7 @@ def root():
                                temp_min = o['main']['temp_min'],
                                temp_max = o['main']['temp_max'],
                                icons = icons,
+                               placeholder = CITY,
                                current_location = d["city"]
         )
     
