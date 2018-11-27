@@ -83,5 +83,10 @@ Fixed weather card in templates. Moved stock cards into a different row.
 qianZ -- 2018-11-26
 experiment with database stocks display
 
+claraM -- 2018-11-27 13:19
+Form now retrieves the appropriate information from the API. Created a new template file, selection.html, that displays this requested information. 
+
 ryanA -- 2018-11-27 12:35
 Can't use collapse, sticking to using dropdowns for the form.  Added mock for weather to be finished later.
+
+
