@@ -4,7 +4,7 @@ from flask import Flask, render_template
 from flask import request, session #login function
 from flask import url_for, redirect, flash #redirect functions
 
-from util import apiOperator
+from util import apiOperator, dbOperator
 
 import os, random
 
@@ -18,29 +18,14 @@ def root():
     #session['stocks']=['goog','aapl']
 
     if (request.method == 'GET'):
-        
-        if not session.keys() or not session['stocks']:
-            return render_template('bootstrap.html', entry=[])
-        #print ("session['stocks']1111:::::::::::")
-        #print(session['stocks'])
-        return render_template('bootstrap.html', entry=apiOperator.stockRetrieve(session['stocks']))
+
+        return render_template('bootstrap.html', entry=apiOperator.stockRetrieve(dbOperator.retrieveStock()))
     else:
         
         l=request.form['symbl']
         if not l:
             return redirect('/')
-        #print('------------')
-        #print(l)
-        #print('================')
-        li = l
-        #print("SESSION KEYS:")
-        #print (session.keys())
-        if 'stocks' not in session.keys():
-            session['stocks']=[]
-        session['stocks'].append(li)
-        session['stocks']=session['stocks']
-        #print ("session['stocks']2222:::::::::::")
-        #print(session['stocks'])
+        dbOperator.modifyStock(l,1)
         return redirect("/")
 
         
@@ -56,6 +41,16 @@ def choic():
     
     
     return "quarum unam incolunt Belgae, aliam Aquitani, tertiam qui ipsorum lingua Celtae, nostra Galli appelantur. Hi omnes lingua, institutis, legibus inter se differunt. Gallos ab Aquitanis Garumna flumen, a Belgis Matrona et Sequana dividit."
+
+@app.route("/rmChoices", methods=["GET"])
+def rmChoic():
+
+    q=request.args.get('rm')
+    if q:
+        dbOperator.modifyStock(q,-1)
+        return redirect('/')
+    else:
+        return redirect('/')
 
 
 if __name__=="__main__":

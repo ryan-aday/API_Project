@@ -10,7 +10,7 @@ from flask import Flask, render_template
 from flask import request, session #login function
 from flask import url_for, redirect, flash #redirect functions
 
-from util import apiOperator
+from util import apiOperator, dbOperator
 
 app = Flask(__name__)
 
@@ -38,14 +38,14 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
 @app.route("/", methods=['GET','POST'])
 def root():
     if not (request.method == 'GET'):
-        li=request.form['symbl']
-        if not li:
+        
+        l=request.form['symbl']
+        print(l)
+        if not l:
             return redirect('/')
-        if 'stocks' not in session.keys():
-            session['stocks']=[]
-        session['stocks'].append(li)
-        session['stocks']=session['stocks']
+        dbOperator.modifyStock(l,1)
         return redirect("/")
+
     
     f = urllib.request.urlopen(IPAPI).read()
     d = json.loads(f)
@@ -65,46 +65,28 @@ def root():
         print(o['list'][0]['weather'])
 
         o = o['list'][0]
-        if 'stocks' not in  session.keys():
-            return render_template("index.html",
+
+        return render_template("index.html",
                                title = o['name'],
                                weather_main = o['weather'],
                                temp_now = o['main']['temp'],
                                temp_min = o['main']['temp_min'],
                                temp_max = o['main']['temp_max'],
-                               icons = icons
-            )
-        else:
-            return render_template("index.html",
-                               title = o['name'],
-                               weather_main = o['weather'],
-                               temp_now = o['main']['temp'],
-                               temp_min = o['main']['temp_min'],
-                               temp_max = o['main']['temp_max'],
-                                   icons = icons,
-                            entry = apiOperator.stockRetrieve(session['stocks'])
+                               icons = icons,
+                               entry = apiOperator.stockRetrieve(dbOperator.retrieveStock())
             )
 
     else:
         print(o['weather'])
-        if 'stocks' not in  session.keys():
-            return render_template("index.html",
+
+        return render_template("index.html",
                                title = o['name'],
                                weather_main = o['weather'],
                                temp_now = o['main']['temp'],
                                temp_min = o['main']['temp_min'],
                                temp_max = o['main']['temp_max'],
-                               icons = icons
-            )
-        else:
-            return render_template("index.html",
-                               title = o['name'],
-                               weather_main = o['weather'],
-                               temp_now = o['main']['temp'],
-                               temp_min = o['main']['temp_min'],
-                               temp_max = o['main']['temp_max'],
-                                   icons = icons,
-                                   entry = apiOperator.stockRetrieve(session['stocks'])
+                               icons = icons,
+                               entry = apiOperator.stockRetrieve(dbOperator.retrieveStock())
             )
 
 @app.route("/choices", methods=["GET"])

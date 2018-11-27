@@ -18,7 +18,7 @@
     <form action="/" method="POST">
       <!-- how to we get values of checkbox input into a list !!!!!!!!!!-->
       {% for S in M %}
-      <input type="radio" name="symbl" value={{S}}>{{S}}</input><br>
+      <input type="radio" name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</input><br>
       {% endfor %}
       <input type="submit" name="select">
     </form>
