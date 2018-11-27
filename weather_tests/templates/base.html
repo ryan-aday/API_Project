@@ -20,7 +20,18 @@
     <div class="container" style="margin-top:50px;">
       <div id = "home">
 	<div class="card" style="width: 18rem;">
-	  <div class="card-header"><h1>{{title}}</h1></div>
+	  <div class="card-header"><h1>{{title}}</h1>
+	    <form action="/" method = "POST">
+	      <div class="form-row">
+		<div class="col">
+		  <input type="text" name="new_location" placeholder="{{current_location}}" class="form-control form-control-sm"></input>
+		</div>
+		<div class="col">
+		  <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-cog"></i></button> <!-- fa-redo -->
+		</div>
+	      </div>
+	    </form>
+	  </div>
 
 	  <div class="card-body">
 	    <h5 class="card-title">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h5>

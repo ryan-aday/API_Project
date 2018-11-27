@@ -4,6 +4,8 @@ from flask import Flask, render_template, request, redirect, flash
 app = Flask(__name__)  # create instance of class Flask
 app.secret_key = "asdfadsfjskdfjqweruioqwerjlkasdjfl;asdjfadlksfkjlfdsjkldfsjkl"
 
+import util.db
+
 IPAPI = "https://ipapi.co/json/"
 
 URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
@@ -22,22 +24,32 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def root():
     f = urllib.request.urlopen(IPAPI).read()
     d = json.loads(f)
     CITY = d["city"]
 
+    if (request.form.get('new_location') != None):
+        try:
+            float(request.form.get('new_location') )
+            util.db.add_location(d["ip"], request.form.get('new_location') + "," + d["country"])
+            CITY = request.form.get('new_location') + "," + d["country"]
+        except ValueError:
+            util.db.add_location(d["ip"], request.form.get('new_location'))
+            CITY = request.form.get('new_location')
+
+    
     print(CITY)
     print(URL_STUB + urllib.parse.quote(CITY) + ADD + API_KEY)
-
+    
     response = urllib.request.urlopen(URL_STUB + urllib.parse.quote(CITY) + ADD + API_KEY)
 
     o = json.loads(response.read())
 
     print(list(o.keys()))
     print(o)
-
+    
     if 'count' in o:
         print(o['list'][0]['weather'])
 
@@ -48,21 +60,23 @@ def root():
                                temp_now = o['main']['temp'],
                                temp_min = o['main']['temp_min'],
                                temp_max = o['main']['temp_max'],
-                               icons = icons
+                               icons = icons,
+                               current_location = d["city"]
         )
     
     else: 
         print(o['weather'])
-                    
         return render_template("base.html",
                                title = o['name'],
                                weather_main = o['weather'],
                                temp_now = o['main']['temp'],
                                temp_min = o['main']['temp_min'],
                                temp_max = o['main']['temp_max'],
-                               icons = icons
+                               icons = icons,
+                               current_location = d["city"]
         )
     
 if __name__ == "__main__":
+    util.db.create_table()
     app.debug = True
     app.run()
