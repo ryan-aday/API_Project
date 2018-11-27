@@ -58,14 +58,34 @@
             <div class="card-body">
               <h5 class="card-title">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h5>
               <h6 class="card-subtitle mb-2 text-muted">{% for i in weather_main %}{{ i.description }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
+
               <div class="row">
                 <div class="col-sm align-bottom"><h1 style="color: #000000;">{{temp_now|int}}°F</h1></div>
-         	<div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div>
-	      </div>
+         	       <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div>
+	            </div>
               <div class="row">
                 <div class="col-sm align-bottom"><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</div>
-         	<div class="col-sm align-bottom"><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</div>
-	      </div>
+         	      <div class="col-sm align-bottom"><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</div>
+	            </div>
+              <br/>
+              <div class="row">
+                <div class="dropdown">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Change the Location
+                  </a>
+
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <form>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Zipcode</label>
+                        <input type=text class="form-control"  aria-describedby="emailHelp" placeholder="Enter zipcode">
+                        <small class="form-text text-muted">Please enter the zipcode you want to use here.</small>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 	</div>
@@ -96,7 +116,7 @@
     </div>
     <p>Stock Data provided for free by <a href="https://iextrading.com/developer/">IEX</a>. View <a href="https://iextrading.com/developer">IEX’s Terms of Use</a>.</p>
 
-    
+
 
     <!--News -->
     <div class="container" id="news">

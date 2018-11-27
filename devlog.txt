@@ -78,8 +78,10 @@ ryanA -- 2018-11-20 23:32
 Finished design.pdf.  Still have problems with Weather API on personal laptop, will download new key to try later.
 
 rachelN -- 2018-11-20 10:00
-Fixed weather card in templates. Moved stock cards into a different row. 
+Fixed weather card in templates. Moved stock cards into a different row.
 
 qianZ -- 2018-11-26
 experiment with database stocks display
 
+ryanA -- 2018-11-27 12:35
+Can't use collapse, sticking to using dropdowns for the form.  Added mock for weather to be finished later.
