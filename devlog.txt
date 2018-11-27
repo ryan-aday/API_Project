@@ -89,4 +89,9 @@ Form now retrieves the appropriate information from the API. Created a new templ
 ryanA -- 2018-11-27 12:35
 Can't use collapse, sticking to using dropdowns for the form.  Added mock for weather to be finished later.
 
-
+claraM - 2018-11-27 17:10
+Added database functionality.
+Added a function to add an entry to database
+Added a function to create table in database
+Added a function to clear database
+Json pulled from The Guardian API is stored in the database
