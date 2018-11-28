@@ -4,14 +4,12 @@ from flask import Flask, session, render_template, request, redirect, flash
 app = Flask(__name__)  # create instance of class Flask
 app.secret_key = "asdfadsfjskdfjqweruioqwerjlkasdjfl;asdjfadlksfkjlfdsjkldfsjkl"
 
-import util.db
-
 IPAPI = "https://ipapi.co/json/"
 
-URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
-ADD = "&units=imperial"
-API_KEY = "&appid=87bdad31331cad64c1efc0c13526c6f8"
-TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
+OPEN_WEATHER_URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
+OPEN_WEATHER_ADD = "&units=imperial"
+OPEN_WEATHER_API_KEY = "&appid=87bdad31331cad64c1efc0c13526c6f8"
+OPEN_WEATHER_TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
 
 icons = {'01d': "sun", '01n': "moon", # clear sky
          '02d': "cloud-sun", '02n': "cloud-moon", # few clouds 
@@ -39,7 +37,7 @@ def root():
 
     if (request.form.get('new_location') != None):
         try: 
-            urllib.request.urlopen(URL_STUB + request.form.get('new_location')  + ADD + API_KEY)
+            urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.form.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
             print(session["CITY"] + " -> " + request.form.get('new_location'))
             try:
                 float(request.form.get('new_location') )
@@ -51,9 +49,9 @@ def root():
             pass
     
     print(session["CITY"])
-    print(URL_STUB + urllib.parse.quote(session["CITY"]) + ADD + API_KEY)
+    print(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
     
-    open_weather_response = urllib.request.urlopen(URL_STUB + urllib.parse.quote(session["CITY"]) + ADD + API_KEY)
+    open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
 
     open_weather = json.loads(open_weather_response.read())
 
@@ -74,6 +72,5 @@ def root():
     
     
 if __name__ == "__main__":
-    util.db.create_table()
     app.debug = True
     app.run()
