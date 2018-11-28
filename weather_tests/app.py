@@ -1,6 +1,6 @@
 import json, urllib
 
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, session, render_template, request, redirect, flash
 app = Flask(__name__)  # create instance of class Flask
 app.secret_key = "asdfadsfjskdfjqweruioqwerjlkasdjfl;asdjfadlksfkjlfdsjkldfsjkl"
 
@@ -24,45 +24,52 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
-@app.route("/", methods=['GET', 'POST'])
+
+@app.route("/", methods=['POST'])
 def root():
-    f = urllib.request.urlopen(IPAPI).read()
-    d = json.loads(f)
-    CITY = d["city"]
+
+    IPAPI_response = urllib.request.urlopen(IPAPI).read()
+    IPAPI_dictionary = json.loads(IPAPI_response)
+    IP_CITY = IPAPI_dictionary["city"]
+
+    #session.clear()
+    
+    if not('CITY' in session):
+        session['CITY'] = IP_CITY
 
     if (request.form.get('new_location') != None):
-        try:
-            float(request.form.get('new_location') )
-            util.db.add_location(d["ip"], request.form.get('new_location') + "," + d["country"])
-            CITY = request.form.get('new_location') + "," + d["country"]
-        except ValueError:
-            util.db.add_location(d["ip"], request.form.get('new_location'))
-            CITY = request.form.get('new_location')[0].upper() + request.form.get('new_location')[1:]
-
-
+        try: 
+            urllib.request.urlopen(URL_STUB + request.form.get('new_location')  + ADD + API_KEY)
+            print(session["CITY"] + " -> " + request.form.get('new_location'))
+            try:
+                float(request.form.get('new_location') )
+                session["CITY"] = request.form.get('new_location') + "," + d["country"]
+                print(session["CITY"])
+            except ValueError:
+                session["CITY"] = request.form.get('new_location').title()
+        except:
+            pass
     
-    print(CITY)
-    print(URL_STUB + urllib.parse.quote(CITY) + ADD + API_KEY)
+    print(session["CITY"])
+    print(URL_STUB + urllib.parse.quote(session["CITY"]) + ADD + API_KEY)
     
-    response = urllib.request.urlopen(URL_STUB + urllib.parse.quote(CITY) + ADD + API_KEY)
+    open_weather_response = urllib.request.urlopen(URL_STUB + urllib.parse.quote(session["CITY"]) + ADD + API_KEY)
 
-    o = json.loads(response.read())
+    open_weather = json.loads(open_weather_response.read())
 
-    print(list(o.keys()))
-    print(o)
+    print(list(open_weather.keys()))
+    print(open_weather)
     
-    if 'count' in o:
-        o = o['list'][0]
-        
+    if 'count' in open_weather:
+        open_weather = open_weather['list'][0]
+
     return render_template("base.html",
-                           title = o['name'],
-                           weather_main = o['weather'],
-                           temp_now = o['main']['temp'],
-                           temp_min = o['main']['temp_min'],
-                           temp_max = o['main']['temp_max'],
-                           icons = icons,
-                           placeholder = o["name"],
-                           current_location = d["city"]
+                           location = open_weather['name'],
+                           weather_main = open_weather['weather'],
+                           temp_now = open_weather['main']['temp'],
+                           temp_min = open_weather['main']['temp_min'],
+                           temp_max = open_weather['main']['temp_max'],
+                           icons = icons
     )
     
     

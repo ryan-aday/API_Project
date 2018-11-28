@@ -11,34 +11,35 @@
 
     <!-- WEATHER ICON CODES https://openweathermap.org/weather-conditions -->
     
-    <title>{{title}}</title>
+    <title>{{location}}</title>
 
   </head>
 
   <body>
-
+   
     <div class="container" style="margin-top:50px;">
       <div id = "home">
 	<div class="card" style="width: 20rem;">
 	  <div class="card-header">
-	    <h1>{{title}}</h1>
+	    <h1>{{location}}</h1>
 	  </div>
-
 	  <div class="card-body">
-	    <h5 class="card-title">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h5>
-	    <h6 class="card-subtitle mb-2 text-muted">{% for i in weather_main %}{{ i.description }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
 	    <div class="row">
               <div class="col-sm align-bottom"><h1>{{temp_now|int}}°F</h1></div>
-	      <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}<h2></div>
+	      <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div>
             </div>
 	    <div class="row">
-              <div class="col-sm align-bottom"><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</div>
-	      <div class="col-sm align-bottom"><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</div>
+	      <div class="col-auto" style="margin-top: -8px; padding-bottom: 10px;">
+		<h6 class="text-muted">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
+	      </div>
+	    </div>
+	    <div class="row" style="padding-bottom: 10px;">
+              <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</h5></div>
+	      <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</h5></div>
             </div>
-	    <br>
 	    <form action="/" method = "POST">
 	      <div class="form-row" style="margin: 0 auto;">
-		<div class="col-auto"><input type="text" name="new_location" placeholder="{{placeholder}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
+		<div class="col-auto"><input type="text" name="new_location" placeholder="{{location}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
 		<div class="col-auto"><button type="submit" class="btn btn-info btn-sm" style="width: 2rem;"><i class="fas fa-cog"></i></button></div> <!-- fa-redo -->
 	      </div>
 	    </form>
