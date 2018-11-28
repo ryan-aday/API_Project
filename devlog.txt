@@ -99,3 +99,6 @@ Json pulled from The Guardian API is stored in the database
 qianZ - 2018-11-27 10:49
 incorporated trial remove function to remove unwanted stocks; bad aesthetical display
 tried to add some preemptive measures against potential bugs
+
+rachelN -- 2018-11-28 16:45
+Finished fixing form for changing location of weather report. Stores location in sessions. 
