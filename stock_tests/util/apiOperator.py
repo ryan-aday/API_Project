@@ -14,7 +14,8 @@ def stockRetrieve(names):
     specific IEX retrieval function
     names is comma separated string
     '''
-    
+    if not names:
+        return []
     URL_STUB = 'https://api.iextrading.com/1.0/stock/market/batch?'
     print ('NAMES:')
     print(names)

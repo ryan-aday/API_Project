@@ -60,7 +60,7 @@ def root():
 
     print(list(o.keys()))
     print(o)
-
+    
     if 'count' in o:
         print(o['list'][0]['weather'])
 
@@ -78,7 +78,7 @@ def root():
 
     else:
         print(o['weather'])
-
+        
         return render_template("index.html",
                                title = o['name'],
                                weather_main = o['weather'],
@@ -95,10 +95,19 @@ def choic():
     q = request.args.get('creditcard')
     if q:
         matches=apiOperator.alphaVantSearch(q)
-        return render_template('choices.html', M=matches)
+        return render_template('choices.html', M=matches, dbstocks=dbOperator.retrieveStock().split(','))
     else:
         return redirect('/')
 
+@app.route("/rmChoices", methods=["GET"])
+def rmChoic():
+
+    q=request.args.get('rm')
+    if q:
+        dbOperator.modifyStock(q,-1)
+        return redirect('/')
+    else:
+        return redirect('/')
     
 if __name__ == "__main__":
     app.debug = True

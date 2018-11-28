@@ -41,7 +41,8 @@
     <br>
     
     <form action="/choices">
-      <input type="text" name="query">
+      <input pattern="[A-Za-z0-9]{1,}" type="text" name="query"><br>
+      (please only enter letters of the alphabet)<br>
       <input type="submit" name="submit">
     </form>
 

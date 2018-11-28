@@ -34,8 +34,10 @@ def choic():
 
     q = request.args.get('query')
     if q:
+        d= dbOperator.retrieveStock().split(',')
+        
         matches=apiOperator.alphaVantSearch(q)
-        return render_template('choices.html', M=matches)
+        return render_template('choices.html', M=matches, dbstocks=d)
     else:
         return redirect('/')
     

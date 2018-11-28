@@ -13,16 +13,31 @@
   <body>
     <h1>Hello, world!</h1>
     <br>
-
-    
+    What stocks do you want?
+    {% if M %}
     <form action="/" method="POST">
       <!-- how to we get values of checkbox input into a list !!!!!!!!!!-->
+      
       {% for S in M %}
       <input type="radio" name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</input><br>
       {% endfor %}
       <input type="submit" name="select">
+      
+      
+      
     </form>
-
+    {% else %}
+    <a href="/"> return </a>
+    {% endif %}
+<br><br>
+    {% if dbstocks %}
+    <form action="/rmChoices">
+      {% for s in dbstocks %}
+      <input type="radio" name="rm" value={{s}}>{{s}}</input><br>
+      {% endfor %}
+      <input type="submit" name="submit"></input>
+    </form>
+    {% endif %}
     
     
   </body>
