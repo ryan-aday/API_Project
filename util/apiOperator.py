@@ -55,6 +55,7 @@ def alphaVantSearch(query):
     d = apiRetrieve(URL, '')
     listOfMatches = []
     for entry in d['bestMatches']:
-        listOfMatches.append([entry['1. symbol'], entry['2. name']])
+        if entry['1. symbol'].find('.') <0:
+            listOfMatches.append([entry['1. symbol'], entry['2. name']])
     print(listOfMatches)
     return listOfMatches
