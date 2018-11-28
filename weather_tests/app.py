@@ -37,7 +37,8 @@ def root():
             CITY = request.form.get('new_location') + "," + d["country"]
         except ValueError:
             util.db.add_location(d["ip"], request.form.get('new_location'))
-            CITY = request.form.get('new_location')
+            CITY = request.form.get('new_location')[0].upper() + request.form.get('new_location')[1:]
+
 
     
     print(CITY)
@@ -51,32 +52,19 @@ def root():
     print(o)
     
     if 'count' in o:
-        print(o['list'][0]['weather'])
-
         o = o['list'][0]
-        return render_template("base.html",
-                               title = o['name'],
-                               weather_main = o['weather'],
-                               temp_now = o['main']['temp'],
-                               temp_min = o['main']['temp_min'],
-                               temp_max = o['main']['temp_max'],
-                               icons = icons,
-                               placeholder = CITY,
-                               current_location = d["city"]
-        )
+        
+    return render_template("base.html",
+                           title = o['name'],
+                           weather_main = o['weather'],
+                           temp_now = o['main']['temp'],
+                           temp_min = o['main']['temp_min'],
+                           temp_max = o['main']['temp_max'],
+                           icons = icons,
+                           placeholder = o["name"],
+                           current_location = d["city"]
+    )
     
-    else: 
-        print(o['weather'])
-        return render_template("base.html",
-                               title = o['name'],
-                               weather_main = o['weather'],
-                               temp_now = o['main']['temp'],
-                               temp_min = o['main']['temp_min'],
-                               temp_max = o['main']['temp_max'],
-                               icons = icons,
-                               placeholder = CITY,
-                               current_location = d["city"]
-        )
     
 if __name__ == "__main__":
     util.db.create_table()
