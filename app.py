@@ -35,10 +35,10 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
+# landing page function
 @app.route("/", methods=['GET','POST'])
 def root():
-    if not (request.method == 'GET'):
-        
+    if (request.method != 'GET'):        
         l=request.form['symbl']
         print(l)
         if not l:
@@ -46,48 +46,28 @@ def root():
         dbOperator.modifyStock(l,1)
         return redirect("/")
 
-    
+    # get IP address
+    # display on website that this is not reliable
     f = urllib.request.urlopen(IPAPI).read()
     d = json.loads(f)
     CITY = d["city"]
     
-    print(CITY)
-
-    print(URL_STUB + urllib.parse.quote(CITY) + ADD + API_KEY)
-
     response = urllib.request.urlopen(URL_STUB + urllib.parse.quote(CITY) + ADD + API_KEY)
     o = json.loads(response.read())
 
-    print(list(o.keys()))
-    print(o)
-    
+    # check what type of JSON was obtained from weather API.
     if 'count' in o:
-        print(o['list'][0]['weather'])
-
         o = o['list'][0]
 
-        return render_template("index.html",
-                               title = o['name'],
-                               weather_main = o['weather'],
-                               temp_now = o['main']['temp'],
-                               temp_min = o['main']['temp_min'],
-                               temp_max = o['main']['temp_max'],
-                               icons = icons,
-                               entry = apiOperator.stockRetrieve(dbOperator.retrieveStock())
-            )
+    return render_template("index.html",
+                           title = o['name'],
+                           weather_main = o['weather'],
+                           temp_now = o['main']['temp'],
+                           temp_min = o['main']['temp_min'],
+                           temp_max = o['main']['temp_max'],
+                           icons = icons,
+                           entry = apiOperator.stockRetrieve(dbOperator.retrieveStock()))
 
-    else:
-        print(o['weather'])
-        
-        return render_template("index.html",
-                               title = o['name'],
-                               weather_main = o['weather'],
-                               temp_now = o['main']['temp'],
-                               temp_min = o['main']['temp_min'],
-                               temp_max = o['main']['temp_max'],
-                               icons = icons,
-                               entry = apiOperator.stockRetrieve(dbOperator.retrieveStock())
-            )
 
 @app.route("/choices", methods=["GET"])
 def choic():
