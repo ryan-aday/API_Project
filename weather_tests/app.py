@@ -23,7 +23,7 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
 }
 
 
-@app.route("/", methods=['POST'])
+@app.route("/", methods=['GET','POST'])
 def root():
 
     IPAPI_response = urllib.request.urlopen(IPAPI).read()
