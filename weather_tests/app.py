@@ -39,9 +39,10 @@ def root():
         try: 
             urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.form.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
             print(session["CITY"] + " -> " + request.form.get('new_location'))
+            print(OPEN_WEATHER_URL_STUB + urllib.parse.quote(request.form.get('new_location') + ",US") + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
             try:
                 float(request.form.get('new_location') )
-                session["CITY"] = request.form.get('new_location') + "," + d["country"]
+                session["CITY"] = request.form.get('new_location') + "," + "US"
                 print(session["CITY"])
             except ValueError:
                 session["CITY"] = request.form.get('new_location').title()
