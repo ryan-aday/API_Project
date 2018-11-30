@@ -102,3 +102,6 @@ tried to add some preemptive measures against potential bugs
 
 rachelN -- 2018-11-28 16:45
 Finished fixing form for changing location of weather report. Stores location in sessions. 
+
+qianZ -- 2018-11-29 23:31
+experiment with quota of AlphaVantage search, merge with api_to_db

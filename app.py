@@ -10,7 +10,9 @@ from flask import Flask, render_template
 from flask import request, session #login function
 from flask import url_for, redirect, flash #redirect functions
 
-from util import apiOperator, dbOperator
+from util import apiOperator, api_to_db
+
+
 
 app = Flask(__name__)
 
@@ -35,15 +37,20 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
+try: api_to_db.createTable()
+except: pass
+api_to_db.createStockRow()
+
 # landing page function
 @app.route("/", methods=['GET','POST'])
 def root():
-    if (request.method != 'GET'):        
-        l=request.form['symbl']
-        print(l)
-        if not l:
-            return redirect('/')
-        dbOperator.modifyStock(l,1)
+    if (request.method != 'GET'):
+        if 'symbl' in request.form.keys():
+            l=request.form['symbl']
+            print(l)
+            if not l:
+                return redirect('/')
+            api_to_db.modifyStock(l,1)
         return redirect("/")
 
     # get IP address
@@ -66,7 +73,7 @@ def root():
                            temp_min = o['main']['temp_min'],
                            temp_max = o['main']['temp_max'],
                            icons = icons,
-                           entry = apiOperator.stockRetrieve(dbOperator.retrieveStock()))
+                           entry = apiOperator.stockRetrieve(api_to_db.retrieveStock()))
 
 
 @app.route("/choices", methods=["GET"])
@@ -75,7 +82,13 @@ def choic():
     q = request.args.get('creditcard')
     if q:
         matches=apiOperator.alphaVantSearch(q)
-        return render_template('choices.html', M=matches, dbstocks=dbOperator.retrieveStock().split(','))
+        print (matches)
+        if matches and matches[0][0].find('Note')==0:
+            flash(matches[0][0])
+            api_to_db.modifyStock(matches[1],1)
+            #still adds option anyway... i doubt this would happen, but as a preemptory move... does no harm... tested for repeated query a
+            return redirect ('/')#edit
+        return render_template('choices.html', M=matches, dbstocks=api_to_db.retrieveStock().split(','))
     else:
         return redirect('/')
 
@@ -84,7 +97,7 @@ def rmChoic():
 
     q=request.args.get('rm')
     if q:
-        dbOperator.modifyStock(q,-1)
+        api_to_db.modifyStock(q,-1)
         return redirect('/')
     else:
         return redirect('/')

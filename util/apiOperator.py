@@ -53,9 +53,15 @@ def alphaVantSearch(query):
     URL='https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey=XDFTB6OV8CPHPJ45'.format(query)
     print(URL)
     d = apiRetrieve(URL, '')
+    if 'Note' in d.keys():
+        #"if there's a note section, then quotas are used up"
+        print(d['Note'])
+        return [['Note:' + d['Note'] + '-- AlphaVantage  Your choice has automatically been added to your database regardless of its validity'],query]#triple list to match other return
     listOfMatches = []
     for entry in d['bestMatches']:
         if entry['1. symbol'].find('.') <0:
             listOfMatches.append([entry['1. symbol'], entry['2. name']])
     print(listOfMatches)
     return listOfMatches
+
+
