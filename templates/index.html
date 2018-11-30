@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
+    <style>
+        .dropdown-menu {
+            min-width:500px;
+          }
+    </style>
     <!-- Title Icon -->
     <link rel="icon" type="image/png" href="http://www.stuycs.org/_/rsrc/1519678307617/config/customLogo.gif?revision=2">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,14 +41,33 @@
 	  <!-- Dropdown (Part of Navbar) -->
 	  <li class="nav-item dropdown">
 	    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">
-	      Menu
+	      Change Stocks Displayed
 	    </a>
+      <!--
 	    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
 	      <a class="dropdown-item" href="#updates">Updates</a>
 	      <a class="dropdown-item" href="#news">Current Events</a>
               <a class="dropdown-item" href="#forms">User Input</a>
 	    </div>
+    -->
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <form action="/choices">
+
+      <div class="form-group">
+        <label for="creditcard">Stock Code</label><br>
+        (some stocks that show up does not exist in our api, most likely those with a . in their stock codes)<br>
+        Please only enter alphabet or number characters.
+        <input name="creditcard" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+        </form>
+      </div>
 	  </li>
+    <li class="nav-item">
+      <button type="button" href="/choices" class="btn btn-primary">Choose Your News</button>
+    </li>
 	</ul>
       </div>
     </nav>
@@ -99,27 +122,6 @@
           </div>
 	</div>
       </div>
-      <div class="container">
-
-        <div class="dropdown">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Change the Location
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <form action="/choices">
-
-      	  <div class="form-group">
-      	    <label for="creditcard">Stock Code</label><br>
-      	    (some stocks that show up does not exist in our api, most likely those with a . in their stock codes)<br>
-      	    Please only enter alphabet or number characters
-      	    <input name="creditcard" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
-      	  </div>
-      	  <button type="submit" class="btn btn-primary">Submit</button>
-      	</div>
-            </form>
-          </div>
-        </div>
       </div>
 
       <div class="container">
@@ -142,11 +144,13 @@
 	  </div>
 	  {% endfor %}
 
+
+
 	  <br>
 	</div>
       </div>
     </div>
-    <p>Stock Data provided for free by <a href="https://iextrading.com/developer/">IEX</a>. View <a href="https://iextrading.com/developer">IEX’s Terms of Use</a>.</p>
+
 
 
 
@@ -169,35 +173,15 @@
       </div>
     </div>
 
-    <!-- Form -->
-
-    <div class="container" id="forms">
-      <br>
-
-      <div class="container-fluid">
-        <h3 style="color:#000080;"> Modify your Daily Updates! </h3>
-        <h5> You can enter your location/zip code to edit the weather results, and you can also add stock codes to change the stocks to preview.  </h5>
-      </div>
-      <form action="/choices">
-
-	  <div class="form-group">
-	    <label for="creditcard">Stock Code</label><br>
-	    (some stocks that show up does not exist in our api, most likely those with a . in their stock codes)<br>
-	    Please only enter alphabet or number characters
-	    <input name="creditcard" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
-	  </div>
-	  <button type="submit" class="btn btn-primary">Submit</button>
-	</div>
-      </form>
-    </div>
-
 
     <br>
     <br>
 
     <div class = "row justify-content-center">
       &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
-
+    </div>
+    <div class = "row justify-content-center">
+      <p>Stock Data provided for free by <a href="https://iextrading.com/developer/">IEX</a>. View <a href="https://iextrading.com/developer">IEX’s Terms of Use</a>.</p>
     </div>
 </div>
 </body>
