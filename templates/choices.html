@@ -30,7 +30,7 @@
     <a href="/"> return </a>
     {% endif %}
 <br><br>
-    {% if dbstocks != [] %}
+    {% if dbstocks!=[""] %}
     <form action="/rmChoices">
       {% for s in dbstocks %}
       <input type="radio" name="rm" value={{s}}>{{s}}</input><br>

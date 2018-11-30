@@ -86,9 +86,13 @@ def choic():
         if matches and matches[0][0].find('Note')==0:
             flash(matches[0][0])
             api_to_db.modifyStock(matches[1],1)
+            
+            
             #still adds option anyway... i doubt this would happen, but as a preemptory move... does no harm... tested for repeated query a
             return redirect ('/')#edit
-        return render_template('choices.html', M=matches, dbstocks=api_to_db.retrieveStock().split(','))
+        dbstocks = api_to_db.retrieveStock().split(',')
+        print(dbstocks)
+        return render_template('choices.html', M=matches, dbstocks=dbstocks)
     else:
         return redirect('/')
 
