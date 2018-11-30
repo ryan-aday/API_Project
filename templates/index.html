@@ -40,9 +40,9 @@
 
 	  <!-- Dropdown (Part of Navbar) -->
 	  <li class="nav-item dropdown">
-	    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">
+	    <button class="btn btn-primary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">
 	      Change Stocks Displayed
-	    </a>
+	    </button>
       <!--
 	    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -120,7 +120,27 @@
               </div>
             </div>
           </div>
+
+          <div class="card" style="width: 18rem;">
+                  <div class="card-header"><h1 style="color: #000000;">{{news_title}}</h1></div>
+                  <div class="card-body">
+
+                    <div class="row">
+                      <h4>Here's the link below to visit the article!</h4>
+                    </div>
+                    <div class="row">
+                      <a href={{url}}>{{news_title}}</a>
+                    </div>
+                    <br/>
+
+                  </div>
+                </div>
+              </div>    
 	</div>
+      </div>
+      <div class="container">
+        <!-- Weather Card -->
+
       </div>
       </div>
 
@@ -136,10 +156,10 @@
               <h5 class="card-title">{{item[5]}}</h5>
               <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
 	      <div class="row">
-		<div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- current price -->
-		<div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- price change-->
-		<div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
 	      </div>
+        <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- current price -->
+        <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- price change-->
+        <div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
 	    </div>
 	  </div>
 	  {% endfor %}
@@ -150,29 +170,6 @@
 	</div>
       </div>
     </div>
-
-
-
-
-    <!--News -->
-    <div class="container" id="news">
-      <!-- Jumbootron -->
-      <div class="jumbotron">
-	<h1 class="display-6" style="font-weight:bold; color: #000080;">These are your most current events!</h1>
-	<p class="lead">{{news_title}}</p>
-	<hr class="my-6">
-	<ul class="list-group">
-	  <li class="list-group-item list-group-item-info">
-            <a href={{article_link}}>{{news_title}}</a>
-          </li>
-          <li class="list-group-item list-group-item-info">
-            <p>{{date_pub}}
-          </li>
-	</ul>
-	<br>
-      </div>
-    </div>
-
 
     <br>
     <br>

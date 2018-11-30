@@ -28,7 +28,7 @@ def insertAPI(api, timestamp, data, key):
     db.close()
     return True
 
-# clear table function  
+# clear table function
 def clearTable():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -52,8 +52,8 @@ def createStockRow():
 
 def retrieveStock():
     """retrieves comma separated string of all stock that will be displayed"""
-    
-    db = sqlite3.connect(DB_FILE) 
+
+    db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     cmd ="SELECT data FROM apis WHERE api='IEX'"
     stocks= c.execute(cmd).fetchall()
@@ -71,20 +71,21 @@ def join(list):
     return s[:-1]
 
 def modifyStock(stock, action):
-    
+
     """modifies entry symbol in user's table, action =1 add, =-1 delete"""
     """ stock is a string that is already verifiied"""
-    
-    
-    db = sqlite3.connect(DB_FILE) 
+
+
+    db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     stock_list=retrieveStock().split(',')
+    cmd=""
     if stock in stock_list:
         if action <0:
             stock_list.pop(stock_list.index(stock))
             stocks = join(stock_list)
             cmd = "UPDATE apis SET data='{}' WHERE api='IEX'".format(stocks)
-    
+
     else:
         stock=stock.upper()
         print(stock+"---------------------")
@@ -94,7 +95,7 @@ def modifyStock(stock, action):
         stocks = join(stock_list)
         print(stocks)
         cmd = "UPDATE apis SET data='{}' WHERE api='IEX'".format(stocks)
-    
+
     c.execute(cmd)
     db.commit() #save changes
     db.close()  #close database
