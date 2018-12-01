@@ -11,34 +11,56 @@
 
   
   <body>
-    <h1>Hello, world!</h1>
+    <div class="container">
+      <a href="/" class="btn btn-secondary d-flex justify-content-center"> <h1>return</h1> </a>
+    
     <br>
-    What stocks do you want?
     {% if M %}
+    
+    <h1 class="d-flex justify-content-center">Choices of Stocks</h1>
+    What stocks do you want?
     <form action="/" method="POST">
-      <!-- how to we get values of checkbox input into a list !!!!!!!!!!-->
-      
-      {% for S in M %}
-      <input type="radio" name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</input><br>
-      {% endfor %}
-      <input type="submit" name="select">
-      
-      
-      
+      <select class="form-control form-control-lg" name="symbl">
+	{% for S in M %}
+	<!--input type="radio" name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</input-->
+	<option name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</option>
+	
+	<br>
+	{% endfor %}
+      </select>
+      <input type="submit" class="btn btn-primary" name="select">
     </form>
     {% else %}
-    <a href="/"> return </a>
+    <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+      <div class="alert alert-warning" role="alert">
+	<h2> No Matching Results</h2>
+      </div>
+      </div>
+    </div>
     {% endif %}
-<br><br>
-    {% if dbstocks!=[""] %}
-    <form action="/rmChoices">
-      {% for s in dbstocks %}
-      <input type="radio" name="rm" value={{s}}>{{s}}</input><br>
-      {% endfor %}
-      <input type="submit" name="submit"></input>
-    </form>
-    {% endif %}
+    <br><br>
     
+    {% if dbstocks!=[""] %}
+    <h1 class="d-flex justify-content-center"> What stock do you want to remove?</h1>
+      <p> (These include stocks that are added directly when your quotas are used up, and those that may not show up in your index page)</p>
+      <p> Remove them at Will!</p>
+      <center><form action="/rmChoices">
+	<select class="form-control-lg" name="rm">
+	{% for s in dbstocks %}
+	
+	<!--input type="radio" name="rm" value={{s}}>{{s}}</input-->
+	<option value={{s}}> {{s}} </option>
+	<br>
+	{% endfor %}
+	</select>
+	<br>
+	<input type="submit" name="submit" class="btn btn-primary"></input>
+      </form></center>
+    {% endif %}
+
+    
+    </div><!-- end container -->
     
   </body>
 </html>

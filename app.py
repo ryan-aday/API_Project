@@ -7,7 +7,7 @@
 import urllib.request, json
 
 from flask import Flask, render_template
-from flask import request, session #login function
+from flask import request, session #session for weather
 from flask import url_for, redirect, flash #redirect functions
 
 from util import apiOperator, api_to_db

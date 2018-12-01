@@ -33,6 +33,7 @@ def clearTable():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("delete from apis where api!='IEX'")
+    #do not clear api name for IEX, since I think users should be able to keep selections from last time
     db.commit()
     db.close()
 

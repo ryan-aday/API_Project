@@ -56,9 +56,12 @@
 
       <div class="form-group">
         <label for="creditcard">Stock Code</label><br>
-        (some stocks that show up does not exist in our api, most likely those with a . in their stock codes)<br>
-        Please only enter alphabet or number characters.
+        <b>(some stocks that show up does not exist in our api)</b><br>
+
         <input name="creditcard" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
+	<small class="form-text text-muted">
+          Please only enter alphabet or number characters.
+	</small>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
