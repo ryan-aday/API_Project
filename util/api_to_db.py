@@ -85,7 +85,7 @@ def modifyStock(stock, action):
         if action <0:
             stock_list.pop(stock_list.index(stock))
             stocks = join(stock_list)
-            cmd = "UPDATE apis SET data='{}' WHERE api='IEX'".format(stocks)
+            cmd = "UPDATE apis SET data='{}',timestamp='{}' WHERE api='IEX'".format(stocks, timestamp())
 
     else:
         stock=stock.upper()
@@ -95,7 +95,8 @@ def modifyStock(stock, action):
             stock_list.pop(0)
         stocks = join(stock_list)
         print(stocks)
-        cmd = "UPDATE apis SET data='{}' WHERE api='IEX'".format(stocks)
+        cmd = "UPDATE apis SET data='{}',timestamp='{}' WHERE api='IEX'".format(stocks, timestamp())
+        
 
     c.execute(cmd)
     db.commit() #save changes
