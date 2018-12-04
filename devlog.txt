@@ -119,4 +119,5 @@ ALL: 2018-11-30:
 Decided against storing JSON data in database because of the difficulty of storing
 a dictionary as a string and then getting the string back into a dictionary. 
 
-
+claraM - 2018-12-03:
+Integrated news with main app.py, and made changed to index.html to allow for this
