@@ -2,28 +2,22 @@ import sqlite3
 import time
 import datetime
 
-def timestamp():
-    ts = time.time()
-    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-    return st
-
-
 DB_FILE = "./data/database.db"
 
 # function to create a table for apis
 def createTable():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("CREATE TABLE apis (api TEXT, timestamp TEXT, data TEXT, key TEXT)")
+    c.execute("CREATE TABLE apis (api TEXT, data TEXT)")
     db.commit()
     db.close()
 
 # insert an API's info into the data table 'apis'
-def insertAPI(api, timestamp, data, key):
+def insertAPI(api, data):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    params = (api, timestamp, data, key)
-    c.execute("INSERT INTO apis VALUES(?, ?, ?, ?)", params)
+    params = (api, data)
+    c.execute("INSERT INTO apis VALUES(?, ?)", params)
     db.commit()
     db.close()
     return True
@@ -48,7 +42,7 @@ def createStockRow():
     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     db.close()
     if not entry:
-        insertAPI('IEX',timestamp(),'','')
+        insertAPI('IEX','')
     return
 
 def retrieveStock():
@@ -85,7 +79,7 @@ def modifyStock(stock, action):
         if action <0:
             stock_list.pop(stock_list.index(stock))
             stocks = join(stock_list)
-            cmd = "UPDATE apis SET data='{}',timestamp='{}' WHERE api='IEX'".format(stocks, timestamp())
+            cmd = "UPDATE apis SET data='{}' WHERE api='IEX'".format(stocks)
 
     else:
         stock=stock.upper()
@@ -95,7 +89,7 @@ def modifyStock(stock, action):
             stock_list.pop(0)
         stocks = join(stock_list)
         print(stocks)
-        cmd = "UPDATE apis SET data='{}',timestamp='{}' WHERE api='IEX'".format(stocks, timestamp())
+        cmd = "UPDATE apis SET data='{}' WHERE api='IEX'".format(stocks)
         
 
     c.execute(cmd)
