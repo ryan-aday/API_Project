@@ -4,9 +4,10 @@ from flask import Flask, session, render_template, request, redirect, flash, url
 
 from util import apiOperator, api_to_db
 
+
+
 app = Flask(__name__)  # create instance of class Flask
 app.secret_key = "asdfadsfjskdfjqweruioqwerjlkasdjfl;asdjfadlksfkjlfdsjkldfsjkl"
-
 
 
 
@@ -28,13 +29,18 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
+
+
 try: api_to_db.createTable()
 except: pass
 api_to_db.createStockRow()
 
+
+
 @app.route("/", methods=['GET','POST'])
 def root():
 
+    # checks if symbol is in keys
     if (request.method != 'GET'):
         if 'symbl' in request.form.keys():
             l=request.form['symbl']
@@ -44,47 +50,54 @@ def root():
             api_to_db.modifyStock(l,1)
         return redirect("/")
 
-    
-    IPAPI_response = urllib.request.urlopen(IPAPI).read()
-    IPAPI_dictionary = json.loads(IPAPI_response)
-    IP_CITY = IPAPI_dictionary["city"]
 
+    
     #session.clear()
-    
-    if not('CITY' in session):
-        session['CITY'] = IP_CITY
 
+    # checks if city is in session -- sets default to city ip address is at if there is no current city
+    if not('CITY' in session):
+        IPAPI_response = urllib.request.urlopen(IPAPI).read()
+        IPAPI_dictionary = json.loads(IPAPI_response)
+        IP_CITY = IPAPI_dictionary["city"]
+        session['CITY'] = IP_CITY
+        
+    # update city
     if (request.args.get('new_location') != None):
-        try: 
+        try: # if the city is an actual city 
             urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.args.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
             print(session["CITY"] + " -> " + request.args.get('new_location'))
             print(OPEN_WEATHER_URL_STUB + urllib.parse.quote(request.args.get('new_location') + ",US") + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
-            try:
-                float(request.args.get('new_location') )
-                session["CITY"] = request.args.get('new_location') + "," + "US"
-                print(session["CITY"])
-            except ValueError:
+            try: # if it's a zipcode (float, 5 digits), defaults to the US
+                float(request.args.get('new_location'))
+                if(len(request.args.get('new_location')) == 5):
+                    session["CITY"] = request.args.get('new_location') + "," + "US"
+                    print(session["CITY"])
+                else:
+                    pass 
+            except ValueError: 
                 session["CITY"] = request.args.get('new_location').title()
         except:
             pass
     
     print(session["CITY"])
     print(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
+
+
     
     open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
-
     open_weather = json.loads(open_weather_response.read())
-
+    
     print(list(open_weather.keys()))
     print(open_weather)
-
     print(request.args.get('new_location'))
     print(request.form.get('new_location'))
 
-    
+    # checks if there's multiple weather types
     if 'count' in open_weather:
         open_weather = open_weather['list'][0]
 
+
+        
     return render_template("index.html",
                            location = open_weather['name'],
                            weather_main = open_weather['weather'],
