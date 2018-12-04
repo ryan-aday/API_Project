@@ -9,7 +9,22 @@ News data comes from The Guardian's API. The default news category is a random o
 
 
 ### Dependencies
-
+We use Flask, wheel, Boostrap and Python.
+- **Flask**
+  To install in your virtual environment: 
+  ```
+  $ pip3 install flask
+  ```
+  For web framework.
+- **Wheel installation**
+  To install in your virtual environment
+  ```
+  $ pip3 install wheel
+  ```
+  For jinja2 dependency for templating.
+- **Boostrap**:  
+  Already part of the file, CDN is used in templates/index.html
+  This is used for nice formatting.
 
 ### How to Run
 
@@ -34,9 +49,9 @@ News data comes from The Guardian's API. The default news category is a random o
   Line 32 contains the key for The Guardian.  
    
 5. Activate your virtual environment:
-  ```
-  $ . path/to/venv/bin/activate
-  ```
+   ```
+    $ . path/to/venv/bin/activate
+   ```
 6. Run the python file called app.py:
     ```
     $ python app.py
