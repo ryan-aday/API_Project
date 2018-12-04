@@ -100,55 +100,52 @@
 <br/>
 
 <div class="container">
-  <div  class="d-flex justify-content-center">
-    <div class="row">
-
-      <div class="card" style="width: 18rem;">
-        <div class="card-header"><h1 style="color: #000000;">{{news_title}}</h1></div>
-        <div class="card-body">
-
-          <div class="row">
-            <h4>Here's the link below to visit the article!</h4>
-          </div>
-          <div class="row">
-            <a href={{url}}>{{news_title}}</a>
-          </div>
-          <br/>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="width: 20rem;">
-      <div class="card-header">
-        <h1>{{title}}</h1>
-      </div>
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header"><h1 style="color: #000000;">{{news_title}}</h1></div>
       <div class="card-body">
         <div class="row">
-          <div class="col-sm align-bottom"><h1>{{temp_now|int}}°F</h1></div>
-          <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div>
+          <h4>Here's the link below to visit the article!</h4>
         </div>
         <div class="row">
-          <div class="col-auto" style="margin-top: -8px; padding-bottom: 10px;">
-            <h6 class="text-muted">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
-          </div>
+          <a href={{url}}>{{news_title}}</a>
         </div>
-        <div class="row" style="padding-bottom: 10px;">
-          <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</h5></div>
-          <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</h5></div>
-        </div>
-        <form action="/">
-          <div class="form-row" style="margin: 0 auto;">
-            <div class="col-auto"><input type="text" name="new_location" placeholder="{{location}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
-            <div class="col-auto"><button type="submit" class="btn btn-info btn-sm" style="width: 2rem;"><i class="fas fa-cog"></i></button></div> <!-- fa-redo -->
-          </div>
-        </form>
+        <br/>
       </div>
     </div>
-
   </div>
 </div>
 
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 20rem;">
+      <div class="card-header">
+	<h1 style="color:#000000;">{{location}}</h1>
+      </div>
+      <div class="card-body">
+	<div class="row">
+	  <div class="col-sm align-bottom"><h1 style="color:#000000;">{{temp_now|int}}°F</h1></div>
+	  <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div>
+	</div>
+	<div class="row">
+	  <div class="col-auto" style="margin-top: -8px; padding-bottom: 10px;">
+	    <h6 class="text-muted">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
+	  </div>
+	</div>
+	<div class="row" style="padding-bottom: 10px;">
+	  <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</h5></div>
+	  <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</h5></div>
+	</div>
+	<form action="/">
+	  <div class="form-row" style="margin: 0 auto;">
+	    <div class="col-auto"><input type="text" name="new_location" placeholder="{{location}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
+	    <div class="col-auto"><button type="submit" class="btn btn-info btn-sm" style="width: 2rem;"><i class="fas fa-cog"></i></button></div> <!-- fa-redo -->
+	  </div>
+	</form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <br>
 <br>
