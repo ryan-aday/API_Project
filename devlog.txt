@@ -103,12 +103,20 @@ tried to add some preemptive measures against potential bugs
 rachelN -- 2018-11-28 16:45
 Finished fixing form for changing location of weather report. Stores location in sessions. 
 
+claraM - 2018-11-27
+Continued working on storing data in database and fixed errors. 
+
+claraM - 2018-11-28
+Created second template file called selections.html to display the requested informations from the file.
+
 qianZ -- 2018-11-29 23:31
 experiment with quota of AlphaVantage search, merge with api_to_db
 
 qianZ -- 2018-12-1 14:35
 templating for Choices.html
 
-rachelN -- 2018-12-03 23:00
-Fixed weather card in app.py, the form now works! With sessions! Uses "GET" method. 
-Added some comments + fixed formatting in templates/index.html and app.py
+ALL: 2018-11-30:
+Decided against storing JSON data in database because of the difficulty of storing
+a dictionary as a string and then getting the string back into a dictionary. 
+
+
