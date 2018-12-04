@@ -29,7 +29,9 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
-
+GUARDIAN_KEY = "697684d3-9e9e-45e8-b3a4-b28ed5a741d9"
+GUARDIAN_STUB = "https://content.guardianapis.com/search?api-key="
+GUARDIAN_URL =  GUARDIAN_STUB + GUARDIAN_KEY
 
 try: api_to_db.createTable()
 except: pass
@@ -89,7 +91,15 @@ def root():
     if 'count' in open_weather:
         open_weather = open_weather['list'][0]
 
-
+    req = urllib.request.urlopen(GUARDIAN_URL)
+    data = json.loads(req.read())
+    l = data['response']['results']
+    s = set()
+    for i in l:
+        s.add(i['sectionName'])
+    # get random from set (ensure that default category exists)
+    # categories are not constant.
+    category = list(s)[0]
         
     return render_template("index.html",
                            location = open_weather['name'],
@@ -98,8 +108,9 @@ def root():
                            temp_min = open_weather['main']['temp_min'],
                            temp_max = open_weather['main']['temp_max'],
                            icons = icons,
-                           entry = apiOperator.stockRetrieve(api_to_db.retrieveStock())
-    )
+                           news = data,
+                           category = category,
+                           entry = apiOperator.stockRetrieve(api_to_db.retrieveStock()))
 
 
 

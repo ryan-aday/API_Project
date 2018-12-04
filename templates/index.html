@@ -105,13 +105,15 @@
   <div class="container">
     <div class="d-flex justify-content-center">
       <div class="card" style="width: 18rem;">
-	<div class="card-header"><h1 style="color: #000000;">{{news_title}}</h1></div>
+	<div class="card-header"><h1 style="color: #000000;">{{category}}</h1> News category</div>
 	<div class="card-body">
+
           <div class="row">
-            <h4>Here's the link below to visit the article!</h4>
-          </div>
-          <div class="row">
-            <a href={{url}}>{{news_title}}</a>
+	    {%for i in news['response']['results'] %}
+	    {%if i['sectionName'] == category %}
+	    <a href={{i['webUrl']}}>{{i['webTitle']}}</a>
+	    {%endif%}
+	    {%endfor%}
           </div>
           <br/>
 	</div>
