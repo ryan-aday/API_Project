@@ -48,12 +48,12 @@
 
         <!-- NAVBAR: DROPDOWN -->
         <li class="nav-item dropdown">
-          <button class="btn btn-primary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">Change Stocks Displayed</button>
+          <button class="btn btn-primary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">Update Stocks</button>
 	  <!-- STOCKS: DROPDOWN -->
 	  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <form action="/choices">
               <div class="form-group">
-		<label for="creditcard">Stock Code</label><br>
+		<label for="creditcard">Stock Symbol</label><br>
 		<b>(some stocks that show up does not exist in our api)</b><br>
 		<input name="creditcard" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
 		<small class="form-text text-muted">
@@ -66,28 +66,29 @@
 	  </div>
 	</li>
 	<li class="nav-item">
-	  <button type="button" href="/choices" class="btn btn-primary">Choose Your News</button>
+	  <button type="button" href="/choices" class="btn btn-primary">Update News</button>
 	</li>
       </ul>
     </div>
   </nav>
 
+  <!-- STOCKS -->
   <div class="container">
     <div  class="d-flex justify-content-center">
       <div class="row">
-	<!--Stock Card -->
+	<!-- STOCK CARDS -->
 	{% for item in entry %}
 	<div class="card" style="width: 18rem;">
           <div class="card-header">
-            <h1>{{item[0]}}</h1><!-- stock code -->
+            <h1>{{item[0]}}</h1><!-- STOCK SYMBOLS -->
           </div>
           <div class="card-body">
             <h5 class="card-title">{{item[5]}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
             <div class="row">
             </div>
-            <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- current price -->
-            <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- price change-->
+            <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- CURRENT PRICE -->
+            <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- CHANGE IN PRICE-->
             <div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
           </div>
 	</div>
@@ -98,8 +99,9 @@
     </div>
   </div>
 
-  <br/>
-
+  <br>
+  
+  <!-- NEWS -->
   <div class="container">
     <div class="d-flex justify-content-center">
       <div class="card" style="width: 18rem;">
@@ -117,26 +119,30 @@
     </div>
   </div>
 
+  <br>
+  
+  <!-- WEATHER -->
   <div class="container">
     <div class="d-flex justify-content-center">
       <div class="card" style="width: 20rem;">
-	<div class="card-header">
-	  <h1 style="color:#000000;">{{location}}</h1>
-	</div>
+	<div class="card-header"><h1 style="color:#000000;">{{location}}</h1></div>
 	<div class="card-body">
+	  <!-- CURRENT WEATHER -->
 	  <div class="row">
 	    <div class="col-sm align-bottom"><h1 style="color:#000000;">{{temp_now|int}}°F</h1></div>
-	    <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div>
+	    <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div> <!-- ICON(S) -->
 	  </div>
 	  <div class="row">
 	    <div class="col-auto" style="margin-top: -8px; padding-bottom: 10px;">
 	      <h6 class="text-muted">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
 	    </div>
 	  </div>
+	  <!-- HI / LOW TEMPS -->
 	  <div class="row" style="padding-bottom: 10px;">
 	    <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</h5></div>
 	    <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</h5></div>
 	  </div>
+	  <!-- UPDATE WEATHER -->
 	  <form action="/">
 	    <div class="form-row" style="margin: 0 auto;">
 	      <div class="col-auto"><input type="text" name="new_location" placeholder="{{location}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
