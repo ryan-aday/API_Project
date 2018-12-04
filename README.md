@@ -7,6 +7,10 @@ The default location for the weather updates using a current location API, but c
 Stock data comes from the IEX API. Stock cards can be added and removed through a form.  
 News data comes from The Guardian's API. The default news category is a random one, but it can be customized through a form. 
 
+
+### Dependencies
+
+
 ### How to Run
 
 0. Clone our repo: 
@@ -29,8 +33,12 @@ News data comes from The Guardian's API. The default news category is a random o
   Line 18 contains the key for Open Weather.   
   Line 32 contains the key for The Guardian.  
    
-5. Run the python file called app.py:
+5. Activate your virtual environment:
+  ```
+  $ . path/to/venv/bin/activate
+  ```
+6. Run the python file called app.py:
     ```
     $ python app.py
     ``` 
-6. You can now view the page in your ```http://localhost:5000```
+7. You can now view the page in your ```http://localhost:5000```
