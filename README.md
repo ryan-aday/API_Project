@@ -6,7 +6,7 @@ Our page displays customizable daily updates. We provide stocks, news, and weath
 
 The default location for the weather updates using a current location API, but can be set through a form. 
 
-Stock data comes from the IEX API. Stock cards can be added and removed through a form. 
+Stock data comes from the IEX API. Stock cards can be added by searching them in AlphaVantage API through a form, and removed through a form involving database. 
 
 News data comes from The Guardian's API. The default news category is a random one, but it can be customized through a form. 
 
