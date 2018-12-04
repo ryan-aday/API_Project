@@ -32,4 +32,5 @@ News data comes from The Guardian's API. The default news category is a random o
 5. Run the python file called app.py:
     ```
     $ python app.py
-    ```
+    ``` 
+6. You can now view the page in your ```http://localhost:5000```
