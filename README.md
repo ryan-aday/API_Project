@@ -25,6 +25,10 @@ We use Flask, wheel, Boostrap and Python.
 - **Boostrap**:  
   Already part of the file, CDN is used in templates/index.html
   This is used for nice formatting.
+  
+  Our stock retrieval functions currently utilize 
+- **time** and **timestamp**
+  though to no effect. They might be deleted shortly. 
 
 ### How to Run
 
