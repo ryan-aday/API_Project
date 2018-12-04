@@ -108,3 +108,7 @@ experiment with quota of AlphaVantage search, merge with api_to_db
 
 qianZ -- 2018-12-1 14:35
 templating for Choices.html
+
+rachelN -- 2018-12-03 23:00
+Fixed weather card in app.py, the form now works! With sessions! Uses "GET" method. 
+Added some comments + fixed formatting in templates/index.html and app.py
