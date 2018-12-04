@@ -14,11 +14,17 @@ News data comes from The Guardian's API. The default news category is a random o
 
 0. Clone our repo: 
   
-    ```$ git clone git@github.com:ryan-aday/RanQuoR-Turkey--adayR-mohriC-ngR-zhouQ.git API_Project```
+    ```
+    $ git clone git@github.com:ryan-aday/RanQuoR-Turkey--adayR-mohriC-ngR-zhouQ.git API_Project
+    ```
 1. Change directories into your newly cloned directory: 
   
-    ```$ cd API_Project```
+    ```
+    $ cd API_Project
+    ```
 2. Run the python file called app.py:
 
-    ```$ python app.py```
+    ```
+    $ python app.py
+    ```
 
