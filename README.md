@@ -27,9 +27,6 @@ We use Flask, wheel, Boostrap and Python.
   This is used for nice formatting.
   
   
-- **time** and **timestamp**
-  Our stock retrieval function currently utilize these, though to no effect. They might be deleted shortly. 
-
 ### How to Run
 
 0. Clone our repo: 
