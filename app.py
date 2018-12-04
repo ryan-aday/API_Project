@@ -52,7 +52,7 @@ def root():
 
 
     
-    #session.clear()
+    #session.clear() # for testing ip
 
     # checks if city is in session -- sets default to city ip address is at if there is no current city
     if not('CITY' in session):
@@ -60,18 +60,17 @@ def root():
         IPAPI_dictionary = json.loads(IPAPI_response)
         IP_CITY = IPAPI_dictionary["city"]
         session['CITY'] = IP_CITY
-        
+
+
+    
     # update city
     if (request.args.get('new_location') != None):
         try: # if the city is an actual city 
             urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.args.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
-            print(session["CITY"] + " -> " + request.args.get('new_location'))
-            print(OPEN_WEATHER_URL_STUB + urllib.parse.quote(request.args.get('new_location') + ",US") + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
             try: # if it's a zipcode (float, 5 digits), defaults to the US
                 float(request.args.get('new_location'))
                 if(len(request.args.get('new_location')) == 5):
                     session["CITY"] = request.args.get('new_location') + "," + "US"
-                    print(session["CITY"])
                 else:
                     pass 
             except ValueError: 
@@ -79,18 +78,12 @@ def root():
         except:
             pass
     
-    print(session["CITY"])
-    print(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
-
 
     
     open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
     open_weather = json.loads(open_weather_response.read())
+
     
-    print(list(open_weather.keys()))
-    print(open_weather)
-    print(request.args.get('new_location'))
-    print(request.form.get('new_location'))
 
     # checks if there's multiple weather types
     if 'count' in open_weather:
@@ -107,7 +100,9 @@ def root():
                            icons = icons,
                            entry = apiOperator.stockRetrieve(api_to_db.retrieveStock())
     )
-    
+
+
+
 @app.route("/choices", methods=["GET"])
 def choic():
 
@@ -124,6 +119,8 @@ def choic():
         return render_template('choices.html', M=matches, dbstocks=dbstocks)
     else:
         return redirect('/')
+
+
     
 @app.route("/rmChoices", methods=["GET"])
 def rmChoic():
@@ -135,6 +132,8 @@ def rmChoic():
     else:
         return redirect('/')
 
+
+    
 if __name__ == "__main__":
     app.debug = True
     app.run()
