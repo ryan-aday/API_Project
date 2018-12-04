@@ -1,33 +1,25 @@
-#Team RanQuoR-Turkey
-#P01 - ArRESTed Development oh dear
-#Period 7
-#2018-11-18
+import json, urllib
 
-
-import urllib.request, json
-
-from flask import Flask, render_template
-from flask import request, session #session for weather
-from flask import url_for, redirect, flash #redirect functions
+from flask import Flask, session, render_template, request, redirect, flash, url_for
 
 from util import apiOperator, api_to_db
 
 
 
-app = Flask(__name__)
-
+app = Flask(__name__)  # create instance of class Flask
 app.secret_key = "asdfadsfjskdfjqweruioqwerjlkasdjfl;asdjfadlksfkjlfdsjkldfsjkl"
+
+
 
 IPAPI = "https://ipapi.co/json/"
 
-URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
-ADD = "&units=imperial"
-API_KEY = "&appid=87bdad31331cad64c1efc0c13526c6f8"
-
-TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
+OPEN_WEATHER_URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
+OPEN_WEATHER_ADD = "&units=imperial"
+OPEN_WEATHER_API_KEY = "&appid=87bdad31331cad64c1efc0c13526c6f8"
+OPEN_WEATHER_TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
 
 icons = {'01d': "sun", '01n': "moon", # clear sky
-         '02d': "cloud-sun", '02n': "cloud-moon", # few clouds
+         '02d': "cloud-sun", '02n': "cloud-moon", # few clouds 
          '03d': "cloud-sun", '03n': "cloud-moon", # scattered clouds
          '04d': "cloud", '04n': "cloud", # broken clouds
          '09d': "cloud-rain", '09n': "cloud-rain", # shower rain
@@ -37,13 +29,20 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
+GUARDIAN_KEY = "697684d3-9e9e-45e8-b3a4-b28ed5a741d9"
+GUARDIAN_STUB = "https://content.guardianapis.com/search?api-key="
+GUARDIAN_URL =  GUARDIAN_STUB + GUARDIAN_KEY
+
 try: api_to_db.createTable()
 except: pass
 api_to_db.createStockRow()
 
-# landing page function
+
+
 @app.route("/", methods=['GET','POST'])
 def root():
+
+    # checks if symbol is in keys
     if (request.method != 'GET'):
         if 'symbl' in request.form.keys():
             l=request.form['symbl']
@@ -53,27 +52,66 @@ def root():
             api_to_db.modifyStock(l,1)
         return redirect("/")
 
-    # get IP address
-    # display on website that this is not reliable
-    f = urllib.request.urlopen(IPAPI).read()
-    d = json.loads(f)
-    CITY = d["city"]
+
     
-    response = urllib.request.urlopen(URL_STUB + urllib.parse.quote(CITY) + ADD + API_KEY)
-    o = json.loads(response.read())
+    #session.clear() # for testing ip
 
-    # check what type of JSON was obtained from weather API.
-    if 'count' in o:
-        o = o['list'][0]
+    # checks if city is in session -- sets default to city ip address is at if there is no current city
+    if not('CITY' in session):
+        IPAPI_response = urllib.request.urlopen(IPAPI).read()
+        IPAPI_dictionary = json.loads(IPAPI_response)
+        IP_CITY = IPAPI_dictionary["city"]
+        session['CITY'] = IP_CITY
 
+
+    
+    # update city
+    if (request.args.get('new_location') != None):
+        try: # if the city is an actual city 
+            urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.args.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
+            try: # if it's a zipcode (float, 5 digits), defaults to the US
+                float(request.args.get('new_location'))
+                if(len(request.args.get('new_location')) == 5):
+                    session["CITY"] = request.args.get('new_location') + "," + "US"
+                else:
+                    pass 
+            except ValueError: 
+                session["CITY"] = request.args.get('new_location').title()
+        except:
+            pass
+    
+
+    
+    open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
+    open_weather = json.loads(open_weather_response.read())
+
+    
+
+    # checks if there's multiple weather types
+    if 'count' in open_weather:
+        open_weather = open_weather['list'][0]
+
+    req = urllib.request.urlopen(GUARDIAN_URL)
+    data = json.loads(req.read())
+    l = data['response']['results']
+    s = set()
+    for i in l:
+        s.add(i['sectionName'])
+    # get random from set (ensure that default category exists)
+    # categories are not constant.
+    category = list(s)[0]
+        
     return render_template("index.html",
-                           title = o['name'],
-                           weather_main = o['weather'],
-                           temp_now = o['main']['temp'],
-                           temp_min = o['main']['temp_min'],
-                           temp_max = o['main']['temp_max'],
+                           location = open_weather['name'],
+                           weather_main = open_weather['weather'],
+                           temp_now = open_weather['main']['temp'],
+                           temp_min = open_weather['main']['temp_min'],
+                           temp_max = open_weather['main']['temp_max'],
                            icons = icons,
+                           news = data,
+                           category = category,
                            entry = apiOperator.stockRetrieve(api_to_db.retrieveStock()))
+
 
 
 @app.route("/choices", methods=["GET"])
@@ -87,15 +125,14 @@ def choic():
             flash(matches[0][0])
             api_to_db.modifyStock(matches[1],1)
             
-            
-            #still adds option anyway... i doubt this would happen, but as a preemptory move... does no harm... tested for repeated query a
             return redirect ('/')#edit
         dbstocks = api_to_db.retrieveStock().split(',')
-        print(dbstocks)
         return render_template('choices.html', M=matches, dbstocks=dbstocks)
     else:
         return redirect('/')
 
+
+    
 @app.route("/rmChoices", methods=["GET"])
 def rmChoic():
 
@@ -105,6 +142,8 @@ def rmChoic():
         return redirect('/')
     else:
         return redirect('/')
+
+
     
 if __name__ == "__main__":
     app.debug = True
