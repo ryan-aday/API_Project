@@ -1,8 +1,14 @@
 import json, urllib
 
-from flask import Flask, session, render_template, request, redirect, flash
+from flask import Flask, session, render_template, request, redirect, flash, url_for
+
+from util import apiOperator, api_to_db
+
 app = Flask(__name__)  # create instance of class Flask
 app.secret_key = "asdfadsfjskdfjqweruioqwerjlkasdjfl;asdjfadlksfkjlfdsjkldfsjkl"
+
+
+
 
 IPAPI = "https://ipapi.co/json/"
 
