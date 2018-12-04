@@ -1,6 +1,7 @@
 import json
 from urllib import request
 
+
 def apiRetrieve(URL_STUB, URL_other):
     '''general api retrieval function'''
     URL=URL_STUB+URL_other
@@ -49,10 +50,17 @@ def alphaVantSearch(query):
     else return list of [[symbol, name]]
     '''
     
-
-    URL='https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey=XDFTB6OV8CPHPJ45'.format(query)
+    f=open('./apiKeys/AlphaVantageKey.txt')
+    fread=f.read()
+    f.close()
+    
+    URL='https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(query,fread)
     print(URL)
-    d = apiRetrieve(URL, '')
+    try:
+        d = apiRetrieve(URL, '')
+    except:
+        return[['Note:' + "your request produced some errors, your query is directly added to the database regardless of its validity"]]
+    
     if 'Note' in d.keys():
         #"if there's a note section, then quotas are used up"
         print(d['Note'])
