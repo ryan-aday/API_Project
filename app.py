@@ -42,18 +42,6 @@ api_to_db.createStockRow()
 @app.route("/", methods=['GET','POST'])
 def root():
 
-    # checks if symbol is in keys
-    if (request.method != 'GET'):
-        if 'symbl' in request.form.keys():
-            l=request.form['symbl']
-            print(l)
-            if not l:
-                return redirect('/')
-            api_to_db.modifyStock(l,1)
-        return redirect("/")
-
-
-    
     #session.clear() # for testing ip
 
     # checks if city is in session -- sets default to city ip address is at if there is no current city
@@ -66,17 +54,17 @@ def root():
 
     
     # update city
-    if (request.args.get('new_location') != None):
+    if (request.form.get('new_location') != None):
         try: # if the city is an actual city 
-            urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.args.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
+            urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.form.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
             try: # if it's a zipcode (float, 5 digits), defaults to the US
-                float(request.args.get('new_location'))
-                if(len(request.args.get('new_location')) == 5):
-                    session["CITY"] = request.args.get('new_location') + "," + "US"
+                float(request.form.get('new_location'))
+                if(len(request.form.get('new_location')) == 5):
+                    session["CITY"] = request.form.get('new_location') + "," + "US"
                 else:
                     pass 
             except ValueError: 
-                session["CITY"] = request.args.get('new_location').title()
+                session["CITY"] = request.form.get('new_location').title()
         except:
             pass
     
@@ -91,6 +79,20 @@ def root():
     if 'count' in open_weather:
         open_weather = open_weather['list'][0]
 
+        
+    
+    # checks if symbol is in keys
+    if (request.method != 'GET'):
+        if 'symbl' in request.form.keys():
+            l=request.form['symbl']
+            print(l)
+            if not l:
+                return redirect('/')
+            api_to_db.modifyStock(l,1)
+        return redirect("/")
+
+
+    
     req = urllib.request.urlopen(GUARDIAN_URL)
     data = json.loads(req.read())
     l = data['response']['results']
