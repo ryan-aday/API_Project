@@ -62,7 +62,7 @@ def root():
             except ValueError: 
                 session["CITY"] = request.form.get('new_location').title()
         except:
-            flash("Location Entry Error:<br>Invalid Location, Try Again?", category="location")
+            flash("Error: Invalid Location", category="location")
             pass
     
 
