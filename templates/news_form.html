@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Choose your news category</title>
+    </head>
+    <body>
+      <h1> The Guardian </h1>
+
+      <form action = "/category" method = "POST">
+        {% for i in section %}
+        <input type = "radio" name = "category" value = "{{i}}" > {{i}} <br>
+        {% endfor %}
+        <input type = "submit" value = "Submit">
+      </form>
+
+    </body>
+</html>
+

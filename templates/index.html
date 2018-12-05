@@ -66,7 +66,7 @@
 	  </div>
 	</li>
 	<li class="nav-item">
-	  <button type="button" href="/choices" class="btn btn-primary">Update News</button>
+	  <a class="btn btn-primary" href="/news_choice" role="button">Customize News</a>
 	</li>
       </ul>
     </div>
@@ -105,16 +105,23 @@
   <div class="container">
     <div class="d-flex justify-content-center">
       <div class="card" style="width: 18rem;">
-	<div class="card-header"><h1 style="color: #000000;">{{category}}</h1> News category</div>
+	<div class="card-header">
+	  News category:<br>
+	  <h1 style="color: #000000;">  
+	    {{category}}
+	  </h1>
+	</div>
 	<div class="card-body">
-
-          <div class="row">
+	  
+          <ul class = "list-group">
 	    {%for i in news['response']['results'] %}
 	    {%if i['sectionName'] == category %}
-	    <a href={{i['webUrl']}}>{{i['webTitle']}}</a>
+	    <li class = "list-group-item">
+	      <a href={{i['webUrl']}}>{{i['webTitle']}}</a>
+	    </li>
 	    {%endif%}
 	    {%endfor%}
-          </div>
+          </ul>
           <br/>
 	</div>
       </div>

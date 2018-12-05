@@ -4,12 +4,8 @@ from flask import Flask, session, render_template, request, redirect, flash, url
 
 from util import apiOperator, api_to_db
 
-
-
 app = Flask(__name__)  # create instance of class Flask
 app.secret_key = "asdfadsfjskdfjqweruioqwerjlkasdjfl;asdjfadlksfkjlfdsjkldfsjkl"
-
-
 
 IPAPI = "https://ipapi.co/json/"
 
@@ -41,8 +37,6 @@ api_to_db.createStockRow()
 
 @app.route("/", methods=['GET','POST'])
 def root():
-
-    #session.clear() # for testing ip
 
     # checks if city is in session -- sets default to city ip address is at if there is no current city
     if not('CITY' in session):
@@ -99,9 +93,14 @@ def root():
     s = set()
     for i in l:
         s.add(i['sectionName'])
-    # get random from set (ensure that default category exists)
-    # categories are not constant.
-    category = list(s)[0]
+
+    if not 'category' in session:
+        # get random from set (ensure that default category exists)
+        # categories are not constant.
+        category = list(s)[0]
+
+    else:
+        category = session['category']
         
     return render_template("index.html",
                            location = open_weather['name'],
@@ -145,6 +144,29 @@ def rmChoic():
     else:
         return redirect('/')
 
+
+# upon clicking on link that leads to news choices, this form is displayed
+# based on current selections of news categories
+@app.route("/news_choice", methods = ["GET"])
+def change_category():
+    req = urllib.request.urlopen(GUARDIAN_URL)
+    news_data = json.loads(req.read())
+    l = news_data['response']['results']
+    s = set()
+    for i in l:
+        s.add(i['sectionName'])
+    return render_template("news_form.html", data = news_data, section = s)
+
+# get selection
+# update session['category']
+@app.route("/category", methods = ["POST"])
+def get_category():
+    req = urllib.request.urlopen(GUARDIAN_URL)
+    news_data = json.loads(req.read())
+    if request.method == "POST":
+        category = request.form.get("category")
+        session['category'] = category
+        return redirect('/')
 
     
 if __name__ == "__main__":
