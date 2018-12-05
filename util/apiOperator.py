@@ -2,6 +2,12 @@ import json
 from urllib import request
 
 
+def getApiKey(filename):
+    f=open('./apiKeys/{}.txt'.format(filename))
+    fread=f.read()
+    f.close()
+    return fread
+
 def apiRetrieve(URL_STUB, URL_other):
     '''general api retrieval function'''
     URL=URL_STUB+URL_other
@@ -50,21 +56,23 @@ def alphaVantSearch(query):
     else return list of [[symbol, name]]
     '''
     
-    f=open('./apiKeys/AlphaVantageKey.txt')
-    fread=f.read()
-    f.close()
+    
+    fread=getApiKey('AlphaVantageKey')
     
     URL='https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(query,fread)
     print(URL)
     try:
         d = apiRetrieve(URL, '')
     except:
-        return[['Note:' + "your request produced some errors, your query is directly added to the database regardless of its validity"]]
-    
+        return [['Note:' + "your request produced some errors, your query is directly added to the database regardless of its validity"],query]
+    print(d)
     if 'Note' in d.keys():
         #"if there's a note section, then quotas are used up"
         print(d['Note'])
         return [['Note:' + d['Note'] + '-- AlphaVantage  Your choice has automatically been added to your database regardless of its validity'],query]#triple list to match other return
+    if 'Error Message' in d.keys():
+        return[['Note:' + d['Error Message']+" Your choice is directly added to the database regardless of its validity."], query]
+    
     listOfMatches = []
     for entry in d['bestMatches']:
         if entry['1. symbol'].find('.') <0:

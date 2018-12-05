@@ -62,18 +62,31 @@
 		<button type="submit" class="btn btn-primary">Submit</button>
 	      </div>
 	    </form>
+	    </div>
           </div>
-	  </div>
+    
 	</li>
-	<li class="nav-item">
+	
+	<li class="nav-item justify-content-right">
 	  <a class="btn btn-primary" href="/news_choice" role="button">Customize News</a>
 	</li>
+	
       </ul>
     </div>
   </nav>
 
 <br><br>
-
+<div class="container">
+  {% set msgs = get_flashed_messages() %}
+    {% for each in msgs %}
+     <div class="alert alert-danger justify-content-center"> 
+       {{ each }}
+       <br>
+     </div>
+     {% endfor %}
+     
+</div>
+<br>
   <!-- STOCKS -->
   <div class="container">
     <div  class="d-flex justify-content-center">

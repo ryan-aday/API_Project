@@ -11,7 +11,8 @@ IPAPI = "https://ipapi.co/json/"
 
 OPEN_WEATHER_URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
 OPEN_WEATHER_ADD = "&units=imperial"
-OPEN_WEATHER_API_KEY = "&appid=87bdad31331cad64c1efc0c13526c6f8"
+OPEN_WEATHER_API_KEY = "&appid="+apiOperator.getApiKey('OPEN_WEATHER_KEY')
+#87bdad31331cad64c1efc0c13526c6f8
 OPEN_WEATHER_TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
 
 icons = {'01d': "sun", '01n': "moon", # clear sky
@@ -25,7 +26,8 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
-GUARDIAN_KEY = "697684d3-9e9e-45e8-b3a4-b28ed5a741d9"
+GUARDIAN_KEY = apiOperator.getApiKey('Guardian_Key')
+#"697684d3-9e9e-45e8-b3a4-b28ed5a741d9"
 GUARDIAN_STUB = "https://content.guardianapis.com/search?api-key="
 GUARDIAN_URL =  GUARDIAN_STUB + GUARDIAN_KEY
 
@@ -63,9 +65,20 @@ def root():
             pass
     
 
-    
-    open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
-    open_weather = json.loads(open_weather_response.read())
+    try:
+        open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
+        open_weather = json.loads(open_weather_response.read())
+    except:
+        flash('PLEASE INSERT YOUR OPEN WEATHER KEY!')
+        open_weather={'main':{'temp':'-998',
+                              'temp_min':"-999",
+                              'temp_max':"0"},
+                      'weather':[{'icon':'50n', 'main':'API KEY!'}],
+                      'name':'No Api Key!'
+                      }
+                      
+
+        
 
     
 
@@ -86,22 +99,29 @@ def root():
         return redirect("/")
 
 
-    
-    req = urllib.request.urlopen(GUARDIAN_URL)
-    data = json.loads(req.read())
-    l = data['response']['results']
-    s = set()
-    for i in l:
-        s.add(i['sectionName'])
+    try:
+        req = urllib.request.urlopen(GUARDIAN_URL)
+        data = json.loads(req.read())
+        l = data['response']['results']
+        s = set()
+        for i in l:
+            s.add(i['sectionName'])
+            
+        if not 'category' in session:
+            # get random from set (ensure that default category exists)
+            # categories are not constant.
+            category = list(s)[0]
 
-    if not 'category' in session:
-        # get random from set (ensure that default category exists)
-        # categories are not constant.
-        category = list(s)[0]
-
-    else:
-        category = session['category']
-        
+        else:
+            category = session['category']
+    except:
+        flash("PLEASE ADD YOUR Guardian API key!")
+        category='No api key!'
+        data={'response':{'result':{'sectionName':'No api key!',
+                                    'webURL':'/',
+                                    'webTitle':'NO API KEY!'
+        }}}
+            
     return render_template("index.html",
                            location = open_weather['name'],
                            weather_main = open_weather['weather'],
@@ -119,18 +139,23 @@ def root():
 def choic():
 
     q = request.args.get('creditcard')
+    dbstocks = api_to_db.retrieveStock().split(',')
     if q:
         matches=apiOperator.alphaVantSearch(q)
         print (matches)
+        
+            
         if matches and matches[0][0].find('Note')==0:
             flash(matches[0][0])
             api_to_db.modifyStock(matches[1],1)
             
-            return redirect ('/')#edit
-        dbstocks = api_to_db.retrieveStock().split(',')
+            return render_template('choices.html', dbstocks=dbstocks)
+        
         return render_template('choices.html', M=matches, dbstocks=dbstocks)
     else:
-        return redirect('/')
+        """ONLY DELETING"""
+        return render_template('choices.html', dbstocks=dbstocks)
+        #return redirect('/')
 
 
     

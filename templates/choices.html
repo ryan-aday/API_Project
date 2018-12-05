@@ -25,6 +25,16 @@
     
     
     <br>
+    <div class="container">
+      {% set msgs = get_flashed_messages() %}
+      {% for each in msgs %}
+      <div class="alert alert-danger justify-content-center"> 
+	{{ each }}
+	<br>
+      </div>
+      {% endfor %}
+      
+    </div>
     {% if M %}
 
     <h1 class="d-flex justify-content-center">Choices of Stocks</h1>
