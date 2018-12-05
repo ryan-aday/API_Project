@@ -128,3 +128,7 @@ Added bootstrap to news_form.html
 
 qianZ - 2018-12-05:
 apiKey error flashing
+
+rachelN -- 2018-12-05 10:30
+Location error flashing within weather card, doesn't flash to apiKey error flashing
+
