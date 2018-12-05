@@ -3,7 +3,7 @@ from urllib import request
 
 
 def getApiKey(filename):
-    f=open('./apiKeys/{}.txt'.format(filename))
+    f=open('./keys/{}.txt'.format(filename))
     fread=f.read()
     f.close()
     return fread
