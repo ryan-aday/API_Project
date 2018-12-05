@@ -124,3 +124,4 @@ Integrated news with main app.py, and made changed to index.html to allow for th
 
 claraM - 2018-12-04:
 Integrated the news form with app.py, and created news_form.html to facilitate this in templates
+Added bootstrap to news_form.html
