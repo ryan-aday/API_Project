@@ -62,6 +62,7 @@ def root():
             except ValueError: 
                 session["CITY"] = request.form.get('new_location').title()
         except:
+            flash("Location Entry Error:<br>Invalid Location, Try Again?", category="location")
             pass
     
 
@@ -85,8 +86,6 @@ def root():
     # checks if there's multiple weather types
     if 'count' in open_weather:
         open_weather = open_weather['list'][0]
-
-        
     
     # checks if symbol is in keys
     if (request.method != 'GET'):
@@ -121,7 +120,9 @@ def root():
                                     'webURL':'/',
                                     'webTitle':'NO API KEY!'
         }}}
-            
+
+
+        
     return render_template("index.html",
                            location = open_weather['name'],
                            weather_main = open_weather['weather'],
