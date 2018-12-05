@@ -16,7 +16,7 @@ OPEN_WEATHER_API_KEY = "&appid="+apiOperator.getApiKey('OPEN_WEATHER_KEY')
 OPEN_WEATHER_TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
 
 icons = {'01d': "sun", '01n': "moon", # clear sky
-         '02d': "cloud-sun", '02n': "cloud-moon", # few clouds 
+         '02d': "cloud-sun", '02n': "cloud-moon", # few clouds
          '03d': "cloud-sun", '03n': "cloud-moon", # scattered clouds
          '04d': "cloud", '04n': "cloud", # broken clouds
          '09d': "cloud-rain", '09n': "cloud-rain", # shower rain
@@ -48,23 +48,23 @@ def root():
         session['CITY'] = IP_CITY
 
 
-    
+
     # update city
     if (request.form.get('new_location') != None):
-        try: # if the city is an actual city 
+        try: # if the city is an actual city
             urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.form.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
             try: # if it's a zipcode (float, 5 digits), defaults to the US
                 float(request.form.get('new_location'))
                 if(len(request.form.get('new_location')) == 5):
                     session["CITY"] = request.form.get('new_location') + "," + "US"
                 else:
-                    pass 
-            except ValueError: 
+                    pass
+            except ValueError:
                 session["CITY"] = request.form.get('new_location').title()
         except:
             flash("Error: Invalid Location", category="location")
             pass
-    
+
 
     try:
         open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
@@ -77,16 +77,11 @@ def root():
                       'weather':[{'icon':'50n', 'main':'API KEY!'}],
                       'name':'No Api Key!'
                       }
-                      
-
-        
-
-    
 
     # checks if there's multiple weather types
     if 'count' in open_weather:
         open_weather = open_weather['list'][0]
-    
+
     # checks if symbol is in keys
     if (request.method != 'GET'):
         if 'symbl' in request.form.keys():
@@ -105,7 +100,7 @@ def root():
         s = set()
         for i in l:
             s.add(i['sectionName'])
-            
+
         if not 'category' in session:
             # get random from set (ensure that default category exists)
             # categories are not constant.
@@ -122,7 +117,7 @@ def root():
         }}}
 
 
-        
+
     return render_template("index.html",
                            location = open_weather['name'],
                            weather_main = open_weather['weather'],
@@ -144,14 +139,14 @@ def choic():
     if q:
         matches=apiOperator.alphaVantSearch(q)
         print (matches)
-        
-            
+
+
         if matches and matches[0][0].find('Note')==0:
             flash(matches[0][0])
             api_to_db.modifyStock(matches[1],1)
-            
+
             return render_template('choices.html', dbstocks=dbstocks)
-        
+
         return render_template('choices.html', M=matches, dbstocks=dbstocks)
     else:
         """ONLY DELETING"""
@@ -159,7 +154,7 @@ def choic():
         #return redirect('/')
 
 
-    
+
 @app.route("/rmChoices", methods=["GET"])
 def rmChoic():
 
@@ -179,8 +174,15 @@ def change_category():
     news_data = json.loads(req.read())
     l = news_data['response']['results']
     s = set()
+
     for i in l:
         s.add(i['sectionName'])
+
+    for checkbox in 'category':
+    value = request.form.get(checkbox):
+    if value:
+#need to add list for selected news 
+
     return render_template("news_form.html", data = news_data, section = s)
 
 # get selection
@@ -194,7 +196,7 @@ def get_category():
         session['category'] = category
         return redirect('/')
 
-    
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
