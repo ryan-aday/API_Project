@@ -13,34 +13,32 @@
     background-color: #E0EEEE;
     font-family: Verdana, sans-serif;
     }
-    
-   
+    h1{
+      font-weight=bold;
+    }
+
+
   </style>
 </head>
 
 
 <body>
-  <a href="/" style="color: white; background-color: #008080;font-weight:bold;" class="btn btn-secondary d-flex justify-content-center"> <h1>return</h1> </a>
   <div class="container">
-    
-    
+    <div class="d-flex justify-content-center" style="font-weight:bold; color:white;">
+      <a href="/" style="background-color: #008080;" class="btn btn-primary"> <h3>Return to Updates</h3> </a>
+    </div>
+  </div>
+  <div class="container">
+
+
     <br>
     <div class="container">
-      {% set msgs = get_flashed_messages() %}
-      {% for each in msgs %}
-      <div class="alert alert-danger justify-content-center"> 
-	{{ each }}
-	<br>
-      </div>
-      {% endfor %}
-      
-    </div>
     {% if M %}
 
-    <h1 class="d-flex justify-content-center">Choices of Stocks</h1>
-    What stocks do you want?
+    <h2 class="d-flex justify-content-center">Choices of Stocks</h2>
+    <p>What stock did you want?</p>
     <form action="/" method="POST">
-      <select class="form-control form-control-lg" name="symbl">
+      <select class="form-control form-control-lg  col-md-12" name="symbl">
         {% for S in M %}
         <!--input type="radio" name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</input-->
         <option name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</option>
@@ -48,7 +46,9 @@
         <br>
         {% endfor %}
       </select>
-      <input type="submit" class="btn btn-primary" name="select">
+      <div class="input-append">
+        <input type="submit" class="btn btn-primary" name="select">
+      </div>
     </form>
     {% else %}
     <div class="row justify-content-md-center">
@@ -59,6 +59,7 @@
       </div>
     </div>
     {% endif %}
+  </div>
     <br><br>
 
     {% if dbstocks!=[""] %}
