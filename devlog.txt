@@ -122,9 +122,16 @@ a dictionary as a string and then getting the string back into a dictionary.
 claraM - 2018-12-03:
 Integrated news with main app.py, and made changed to index.html to allow for this
 
+rachelN -- 2018-12-03 23:00
+Fixed weather card in app.py, the form now works! With sessions! Uses "GET" method. 
+Added some comments + fixed formatting in templates/index.html and app.py
+
 claraM - 2018-12-04:
 Integrated the news form with app.py, and created news_form.html to facilitate this in templates
 Added bootstrap to news_form.html
+
+rachelN -- 2018-12-04 12:53
+Changed weather form method back to "POST"
 
 qianZ - 2018-12-05:
 apiKey error flashing
