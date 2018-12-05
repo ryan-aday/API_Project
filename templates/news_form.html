@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-  
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -18,21 +18,33 @@ Cw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="an
       }
     </style>
   </head>
-  
+
   <body>
-    <a href="/" style="color: white; background-color: #008080;font-weight:bold;" class="btn btn-secondary d-flex justify-cont\
-ent-center">  <h1> Make your choice:</h1> </a>
-    <br><br>
+
+    <div class="container">
+      <div class="d-flex justify-content-center" style="font-weight:bold; color:white;">
+        <a href="/" style="background-color: #008080;" class="btn btn-primary"> <h3>Return to Updates</h3> </a>
+      </div>
+    </div>
+
+    <br>
     <div class = "container">
-    Here are the current news catgeories featured on The Guardian. <br>
-    Which category do you wish to see displayed on your home screeen? 
-    <form action = "/category" method = "POST">
+      <h2 style="text-align:center;">Choices of Stocks</h2>
+
+
+    <br>
+    <p style="text-align:center;">
+    Here are the current news catgeories featured on The Guardian. <br/>
+    Which category do you wish to see displayed on your home screeen?
+  </p>
+    <form action = "/category" method = "POST" style="text-align:center;">
       {% for i in section %}
-      <input type = "radio" name = "category" value = "{{i}}" > {{i}} <br>
+    <input class="form-check-input" type = "radio" name = "category" value = "{{i}}" > {{i}} <br>
+
         {% endfor %}
-      <input type = "submit" value = "Submit">
+        <input type="submit" class="btn btn-primary" name="select">
+
     </form>
     </div>
   </body>
 </html>
-
