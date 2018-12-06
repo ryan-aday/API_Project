@@ -44,6 +44,7 @@ We use Flask, wheel, Boostrap and Python.
       We use OpenWeatherMap's free API. You can procure your key by following the instructions [here](https://openweathermap.org/price)
   -  News API: 
       We use The Guardian's free API. You can procure your key by following the instructions [here](https://open-platform.theguardian.com/access/)
+  - Alpha Vantage API:
       We use AlphaVantage's free API. You can procure your key by the following instructions [here](https://www.alphavantage.co/support/#api-key)
 
 4. Once you've created your keys, you can replace them in the respective files in the folder `./apiKeys/`
