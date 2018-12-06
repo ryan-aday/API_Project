@@ -104,6 +104,7 @@ def root():
             # categories are not constant.
             c = list(s)[0]
             category = [c]
+            session['category'] = category
 
         else:
             print("found app.py", session['category'])
