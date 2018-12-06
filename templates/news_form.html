@@ -40,12 +40,12 @@
       <form action = "/category" method = "POST" style="text-align:center;">
         <select class="form-control-lg" name="category">
           {% for i in section %}
-
-          <option value={{i}}> {{i}} </option>
+	  
+          <option value='{{i}}'> {{i}} </option>
           <br>
           {% endfor %}
         </select>
-        <br>
+        <br><br>
         <input type="submit" name="submit" class="btn btn-primary"></input>
       </form>
     </center>
@@ -68,7 +68,7 @@
           <br>
           {% endfor %}
         </select>
-        <br>
+        <br><br>
         <input type="submit" name="submit" class="btn btn-primary"></input>
       </form>
     </center>
