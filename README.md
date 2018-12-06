@@ -58,3 +58,23 @@ We use Flask, wheel, Boostrap and Python.
     $ python app.py
     ``` 
 7. You can now view the page in your ```http://localhost:5000```
+
+### How to use the page
+On our website, you can customize which types of stock, news, and weather updates you're getting.   
+Upon first starting up the website, you'll be greeted with some default stock, news, and weather updates.  
+To change stock updates:   
+- Hover over to "Update Your Stocks"
+  - If you'd like to add stocks, type in the stock you're looking for and press "Submit"
+  - If you'd like to remove stocks, and press "Submit"
+- Select the stocks you'd like to add/remove
+- Press submit
+
+To change news updates: 
+- Hover over to "Customize Your News"
+  - Select categories you'd like to add/remove
+  - Press submit
+  
+To change weather updates:
+- Type in the city you're looking for
+- Press enter
+
