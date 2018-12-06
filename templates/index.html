@@ -118,22 +118,22 @@
   <br>
 
   <!-- NEWS -->
+  {%for j in category %}
   <div class="container">
     <div class="d-flex justify-content-center">
-
-      {%for i in category[]%}
       <div class="card" style="width: 18rem;">
 	<div class="card-header">
 	  News category:<br>
-	  <h1 style="color: #000000;">
-	    {{category}}
-	  </h1>
+	  <h1 style="color: #000000;">  
+	    {{j}} 
+	  </h1> 
 	</div>
 	<div class="card-body">
 
           <ul class = "list-group">
 	    {%for i in news['response']['results'] %}
-	    {%if i['sectionName'] == category[i] %}
+
+	    {%if i['sectionName'] == j %}
 	    <li class = "list-group-item">
 	      <a href={{i['webUrl']}}>{{i['webTitle']}}</a>
 	    </li>
@@ -143,10 +143,10 @@
           <br/>
 	</div>
       </div>
-      {%endfor%}
+
     </div>
   </div>
-
+  {%endfor%}
   <br>
 
   <!-- WEATHER -->

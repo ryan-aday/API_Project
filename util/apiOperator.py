@@ -24,8 +24,6 @@ def stockRetrieve(names):
     if not names:
         return []
     URL_STUB = 'https://api.iextrading.com/1.0/stock/market/batch?'
-    print ('NAMES:')
-    print(names)
     names=names.upper()
     symb = 'symbols='+names
     '''for name in names:
@@ -39,12 +37,10 @@ def stockRetrieve(names):
     """ 0           1          2                 3       4           5      """
     #print(d)
     names=names.split(',')
-    print(d.keys())
     for name in names:
         if name in d.keys():
             D.append([name,d[name]['quote']['latestPrice'],round((d[name]['quote']['latestPrice']-d[name]['quote']['open'])/d[name]['quote']['open'],4),round(d[name]['quote']['latestPrice']-d[name]['quote']['open'],4),d[name]['quote']['latestPrice'], d[name]['quote']['companyName']])
     #print("++++++++++")
-    print (D)
     return D
 
 def alphaVantSearch(query):
@@ -60,12 +56,12 @@ def alphaVantSearch(query):
     fread=getApiKey('AlphaVantageKey')
     
     URL='https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(query,fread)
-    print(URL)
+
     try:
         d = apiRetrieve(URL, '')
     except:
         return [['Note:' + "your request produced some errors, your query is directly added to the database regardless of its validity"],query]
-    print(d)
+
     if 'Note' in d.keys():
         #"if there's a note section, then quotas are used up"
         print(d['Note'])
@@ -77,7 +73,7 @@ def alphaVantSearch(query):
     for entry in d['bestMatches']:
         if entry['1. symbol'].find('.') <0:
             listOfMatches.append([entry['1. symbol'], entry['2. name']])
-    print(listOfMatches)
+
     return listOfMatches
 
 

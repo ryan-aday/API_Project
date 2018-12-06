@@ -36,8 +36,6 @@ try: api_to_db.createTable()
 except: pass
 api_to_db.createStockRow()
 
-
-
 @app.route("/", methods=['GET','POST'])
 def root():
 
@@ -47,8 +45,6 @@ def root():
         IPAPI_dictionary = json.loads(IPAPI_response)
         IP_CITY = IPAPI_dictionary["city"]
         session['CITY'] = IP_CITY
-
-
 
     # update city
     if (request.form.get('new_location') != None):
@@ -87,7 +83,6 @@ def root():
     if (request.method != 'GET'):
         if 'symbl' in request.form.keys():
             l=request.form['symbl']
-            print(l)
             if not l:
                 return redirect('/')
             api_to_db.modifyStock(l,1)
@@ -105,10 +100,13 @@ def root():
         if not 'category' in session:
             # get random from set (ensure that default category exists)
             # categories are not constant.
-            category = list(s)[0]
+            c = list(s)[0]
+            category = [c]
 
-        else:
+        else: 
+            print("found", session['category'])
             category = session['category']
+            
     except:
         flash("PLEASE ADD YOUR Guardian API key!")
         category='No api key!'
@@ -118,7 +116,7 @@ def root():
         }}}
 
 
-
+    
     return render_template("index.html",
                            location = open_weather['name'],
                            weather_main = open_weather['weather'],
@@ -139,9 +137,6 @@ def choic():
     dbstocks = api_to_db.retrieveStock().split(',')
     if q:
         matches=apiOperator.alphaVantSearch(q)
-        print (matches)
-
-
         if matches and matches[0][0].find('Note')==0:
             flash(matches[0][0])
             api_to_db.modifyStock(matches[1],1)
@@ -175,15 +170,8 @@ def change_category():
     news_data = json.loads(req.read())
     l = news_data['response']['results']
     s = set()
-
     for i in l:
         s.add(i['sectionName'])
-
-    for checkbox in 'category':
-    value = request.form.get(checkbox):
-    if value:
-#need to add list for selected news 
-
     return render_template("news_form.html", data = news_data, section = s)
 
 # get selection
@@ -194,8 +182,13 @@ def get_category():
     news_data = json.loads(req.read())
     if request.method == "POST":
         category = request.form.get("category")
-        session['category'] = category
-        return redirect('/')
+    if not 'category' in session:
+        session['category'] = []
+    print("should be adding", category)
+    session['category'].append(category)
+    session['category'].append("hello")
+    print("now is, ",session['category'])
+    return redirect('/')
 
 
 if __name__ == "__main__":

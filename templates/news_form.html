@@ -29,21 +29,19 @@ Cw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="an
 
     <br>
     <div class = "container">
-      <h2 style="text-align:center;">Choices of Stocks</h2>
-
-
+      <h2 style="text-align:center;">Choices of News Categories</h2>
     <br>
     <p style="text-align:center;">
     Here are the current news catgeories featured on The Guardian. <br/>
     Which category do you wish to see displayed on your home screeen?
   </p>
+
     <form action = "/category" method = "POST" style="text-align:center;">
       {% for i in section %}
-    <input class="form-check-input" type = "checkbox" name = "category" id="news" value = "{{i}}" > {{i}} <br>
-
-        {% endfor %}
-        <input type="submit" class="btn btn-primary" name="select">
-
+      <input class="form-check-input" type = "radio" name = "category" value = "{{i}}" > {{i}} <br>
+      {% endfor %}
+      <input type="submit" class="btn btn-primary" name="select">
+      
     </form>
     </div>
   </body>

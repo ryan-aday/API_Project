@@ -36,8 +36,6 @@ def createStockRow():
     c=db.cursor()
     cmd = 'SELECT api FROM apis WHERE api="IEX"'
     entry = c.execute(cmd).fetchall()
-    print(entry)
-    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     db.close()
     if not entry:
         insertAPI('IEX','')
@@ -81,12 +79,10 @@ def modifyStock(stock, action):
 
     else:
         stock=stock.upper()
-        print(stock+"---------------------")
         stock_list.append(stock)
         if stock_list[0]=='':
             stock_list.pop(0)
         stocks = join(stock_list)
-        print(stocks)
         cmd = "UPDATE apis SET data='{}' WHERE api='IEX'".format(stocks)
         
 
