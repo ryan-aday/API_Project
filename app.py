@@ -183,15 +183,16 @@ def get_category():
     req = urllib.request.urlopen(GUARDIAN_URL)
     news_data = json.loads(req.read())
 
-    #if not('category' in session):
-    session['category'] = []
+    if not('category' in session):
+        session['category'] = []
     
     if request.method == "POST":
         category = request.form.get("category")
              
     print("should be adding", category)
     session['category'].append(category)
-    session['category'].append("hello")
+    #session['category'].append("hello")
+    session.modified = True
     print("now is, ",session['category'])
     return redirect('/')
 
