@@ -135,7 +135,7 @@ def root():
 @app.route("/choices", methods=["GET"])
 def choic():
 
-    q = request.args.get('creditcard')
+    q = request.args.get('stock')
     dbstocks = api_to_db.retrieveStock().split(',')
     if q:
         matches=apiOperator.alphaVantSearch(q)
@@ -199,14 +199,11 @@ def get_category():
 @app.route("/removingnews", methods = ["GET"])
 def rm_news():
     q=request.args.get('rmnews')
+    print(q)
     if q:
-        #session['category'].pop(session['category'].index(q))
-        #fix = join(session['category'])
-        #session['category']=fix
-
-        #ISSUES with cards not disappearing, speculated that funcction simply redirects
         print(q)
         session['category'].remove(q)
+        session.modified = True
         print(session['category'])
         return redirect('/')
     else:

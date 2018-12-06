@@ -17,7 +17,9 @@
     font-weight=bold;
   }
 
-
+  p{
+    text-align:center;
+  }
   </style>
 </head>
 
@@ -40,7 +42,6 @@
       <form action="/" method="POST">
         <select class="form-control form-control-lg  col-md-12" name="symbl">
           {% for S in M %}
-          <!--input type="radio" name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</input-->
           <option name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</option>
 
           <br>
@@ -64,8 +65,8 @@
 
     {% if dbstocks!=[""] %}
     <h1 class="d-flex justify-content-center"> What stock do you want to remove?</h1>
-    <p> (These include stocks that are added directly when your quotas are used up, and those that may not show up in your index page)</p>
-    <p> Remove them at Will!</p>
+    <p> (These include stocks that are added directly when your quotas are used up, and those that may not show up in your index page)<br/>
+
     <center>
       <form action="/rmChoices">
         <select class="form-control-lg" name="rm">
@@ -79,9 +80,11 @@
       </form>
     </center>
     {% endif %}
-
-
   </div><!-- end container -->
 
+  <div class = "row justify-content-center">
+    &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
+  </div>
+  
 </body>
 </html>

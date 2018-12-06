@@ -142,4 +142,8 @@ Location error flashing within weather card, doesn't flash to apiKey error flash
 ryanA -- 2018-12-06 06:05
 Made requirements.txt.  Reformatted news_form, added remove category form.
 Issues with seeing removed categories on index.html.
-  
+
+ryanA -- 2018-12-06 07:35
+Reformatted the templates.  Fixed removing category issue to rmnews fxn
+by adding sessions.modified=TRUE.  Thinking of keeping news in cards, but must
+change card column width to fit cards better.

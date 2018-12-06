@@ -48,14 +48,14 @@
 
         <!-- NAVBAR: DROPDOWN -->
         <li class="nav-item dropdown">
-          <button class="btn btn-primary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">Update Stocks</button>
+          <button class="btn btn-primary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">Update Your Stocks</button>
           <!-- STOCKS: DROPDOWN -->
           <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding: 20px;">
             <form action="/choices">
               <div class="form-group">
-                <label for="creditcard">Stock Symbol</label><br>
-                <b>(some stocks that show up does not exist in our api)</b><br>
-                <input name="creditcard" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
+                <label for="stock" style="font-weight:bold">Stock Symbol</label><br>
+                <small>(some stocks that show up may not exist in the AlphaVantage API)</small><br>
+                <input name="stock" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="stock" placeholder="Enter your stock code here...">
                 <small class="form-text text-muted">
                   Please only enter alphabet or number characters.
                 </small>
@@ -66,7 +66,7 @@
         </div>
       </li>
       <li class="nav-item justify-content-right">
-        <a class="btn btn-primary" href="/news_choice" role="button">Customize News</a>
+        <a class="btn btn-primary" style="font-weight:bold;" href="/news_choice" role="button">Customize Your News</a>
       </li>
     </ul>
   </div>
@@ -125,8 +125,8 @@
 
       <div class="card" style="width: 18rem;">
         <div class="card-header">
-          News category:<br>
-          <h1 style="color: #000000;">
+          <!--News category:<br>-->
+          <h1 style="color: #0000e4; font-weight:bold;">
             {{j}}
           </h1>
         </div>
@@ -203,7 +203,9 @@
 </div>
 </div>
 
+<div class = "row justify-content-center">
+  &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
+</div>
+
 </body>
-
-
 </html>
