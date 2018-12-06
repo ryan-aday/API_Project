@@ -192,7 +192,6 @@ def get_category():
 
     print("should be adding", category)
     session['category'].append(category)
-    #session['category'].append("hello")
     session.modified = True
     print("now is, ",session['category'])
     return redirect('/')

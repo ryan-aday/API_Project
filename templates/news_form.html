@@ -40,8 +40,9 @@
       <form action = "/category" method = "POST" style="text-align:center;">
         <select class="form-control-lg" name="category">
           {% for i in section %}
-	  
+	  {%if not i in session['category'] %}
           <option value='{{i}}'> {{i}} </option>
+	  {%endif%}
           <br>
           {% endfor %}
         </select>
@@ -64,7 +65,7 @@
         <select class="form-control-lg" name="rmnews">
           {% for s in session['category'] %}
 
-          <option value={{s}}> {{s}} </option>
+          <option value='{{s}}'> {{s}} </option>
           <br>
           {% endfor %}
         </select>
