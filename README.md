@@ -71,8 +71,8 @@ To change stock updates:
 
 To change news updates: 
 - Hover over to "Customize Your News"
-  - Select categories you'd like to add/remove
-  - Press submit
+- Select categories you'd like to add/remove
+- Press submit
   
 To change weather updates:
 - Type in the city you're looking for
