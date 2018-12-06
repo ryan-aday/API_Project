@@ -79,6 +79,8 @@ def root():
     if 'count' in open_weather:
         open_weather = open_weather['list'][0]
 
+
+        
     # checks if symbol is in keys
     if (request.method != 'GET'):
         if 'symbl' in request.form.keys():
@@ -104,7 +106,7 @@ def root():
             category = [c]
 
         else: 
-            print("found", session['category'])
+            print("found app.py", session['category'])
             category = session['category']
             
     except:
@@ -180,10 +182,13 @@ def change_category():
 def get_category():
     req = urllib.request.urlopen(GUARDIAN_URL)
     news_data = json.loads(req.read())
+
+    #if not('category' in session):
+    session['category'] = []
+    
     if request.method == "POST":
         category = request.form.get("category")
-    if not 'category' in session:
-        session['category'] = []
+             
     print("should be adding", category)
     session['category'].append(category)
     session['category'].append("hello")
