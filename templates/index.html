@@ -10,22 +10,22 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
   <style>
-    body{
+  body{
     background-color: #E0EEEE;
     font-family: Verdana, sans-serif;
-    }
-    h1{
+  }
+  h1{
     color: #7fffd4;
-    }
-    li {
+  }
+  li {
     list-style-type: none;
-    }
-    .dropdown:hover .dropdown-menu {
+  }
+  .dropdown:hover .dropdown-menu {
     display: block;
-    }
-    .dropdown-menu {
+  }
+  .dropdown-menu {
     min-width: 500px;
-    }
+  }
   </style>
 
   <!-- TITLE ICON -->
@@ -49,28 +49,28 @@
         <!-- NAVBAR: DROPDOWN -->
         <li class="nav-item dropdown">
           <button class="btn btn-primary dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white; font-weight:bold;">Update Stocks</button>
-	  <!-- STOCKS: DROPDOWN -->
-	  <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding: 20px;">
+          <!-- STOCKS: DROPDOWN -->
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="padding: 20px;">
             <form action="/choices">
               <div class="form-group">
-		<label for="creditcard">Stock Symbol</label><br>
-		<b>(some stocks that show up does not exist in our api)</b><br>
-		<input name="creditcard" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
-		<small class="form-text text-muted">
-		  Please only enter alphabet or number characters.
-		</small>
-		<button type="submit" class="btn btn-primary">Submit</button>
-	      </div>
-	    </form>
-	    </div>
+                <label for="creditcard">Stock Symbol</label><br>
+                <b>(some stocks that show up does not exist in our api)</b><br>
+                <input name="creditcard" type="text" pattern="[A-Za-z0-9]{1,}" class="form-control" id="creditcard" placeholder="Enter your stock code here...">
+                <small class="form-text text-muted">
+                  Please only enter alphabet or number characters.
+                </small>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
           </div>
-	</li>
-	<li class="nav-item justify-content-right">
-	  <a class="btn btn-primary" href="/news_choice" role="button">Customize News</a>
-	</li>
-      </ul>
-    </div>
-  </nav>
+        </div>
+      </li>
+      <li class="nav-item justify-content-right">
+        <a class="btn btn-primary" href="/news_choice" role="button">Customize News</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <br><br>
 <div class="container">
@@ -88,117 +88,119 @@
 
 <br>
 
-  <!-- STOCKS -->
-  <div class="container">
-    <div  class="d-flex justify-content-center">
-      <div class="row">
-	<!-- STOCK CARDS -->
-	{% for item in entry %}
-	<div class="card" style="width: 18rem;">
-          <div class="card-header">
-            <h1>{{item[0]}}</h1><!-- STOCK SYMBOLS -->
+<!-- STOCKS -->
+<div class="container">
+  <div  class="d-flex justify-content-center">
+    <div class="row">
+      <!-- STOCK CARDS -->
+      {% for item in entry %}
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          <h1>{{item[0]}}</h1><!-- STOCK SYMBOLS -->
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{item[5]}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
+          <div class="row">
           </div>
-          <div class="card-body">
-            <h5 class="card-title">{{item[5]}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
-            <div class="row">
-            </div>
-            <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- CURRENT PRICE -->
-            <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- CHANGE IN PRICE-->
-            <div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
-          </div>
-	</div>
-	{% endfor %}
-	<br/>
-	<br/>
+          <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- CURRENT PRICE -->
+          <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- CHANGE IN PRICE-->
+          <div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
+        </div>
       </div>
+      {% endfor %}
+      <br/>
+      <br/>
     </div>
   </div>
+</div>
 
-  <br>
+<br>
 
-  <!-- NEWS -->
-  {%for j in category %}
-  <div class="container">
-    <div class="d-flex justify-content-center">
+<!-- NEWS -->
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="row">
+      {%for j in category %}
+
       <div class="card" style="width: 18rem;">
-	<div class="card-header">
-	  News category:<br>
-	  <h1 style="color: #000000;">  
-	    {{j}} 
-	  </h1> 
-	</div>
-	<div class="card-body">
+        <div class="card-header">
+          News category:<br>
+          <h1 style="color: #000000;">
+            {{j}}
+          </h1>
+        </div>
+        <div class="card-body">
 
           <ul class = "list-group">
-	    {%for i in news['response']['results'] %}
+            {%for i in news['response']['results'] %}
 
-	    {%if i['sectionName'] == j %}
-	    <li class = "list-group-item">
-	      <a href={{i['webUrl']}}>{{i['webTitle']}}</a>
-	    </li>
-	    {%endif%}
-	    {%endfor%}
+            {%if i['sectionName'] == j %}
+            <li class = "list-group-item">
+              <a href={{i['webUrl']}}>{{i['webTitle']}}</a>
+            </li>
+            {%endif%}
+            {%endfor%}
           </ul>
-          <br/>
-	</div>
+        </div>
       </div>
-
+      {%endfor%}
     </div>
   </div>
-  {%endfor%}
-  <br>
+</div>
 
-  <!-- WEATHER -->
+<br>
 
-  <div class="container">
+<!-- WEATHER -->
 
-    <div class="d-flex justify-content-center">
-      <div class="card" style="width: 20rem;">
-	<div class="card-header"><h1 style="color:#000000;">{{location}}</h1></div>
-	<div class="card-body">
-	  <!-- CURRENT WEATHER -->
-	  <div class="row">
-	    <div class="col-sm align-bottom"><h1 style="color:#000000;">{{temp_now|int}}°F</h1></div>
-	    <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div> <!-- ICON(S) -->
-	  </div>
-	  <div class="row">
-	    <div class="col-auto" style="margin-top: -8px; padding-bottom: 10px;">
-	      <h6 class="text-muted">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
-	    </div>
-	  </div>
-	  <!-- HI / LOW TEMPS -->
-	  <div class="row" style="padding-bottom: 10px;">
-	    <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</h5></div>
-	    <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</h5></div>
-	  </div>
+<div class="container">
 
-	  {% set msgs = get_flashed_messages(category_filter=["location"]) %}
-	  {% for msg in msgs %}
-	  <div class="alert-danger text-center" style="padding: 5px; margin-bottom: 20px; "><small>{{ msg }}</small></div>
-	  {% endfor %}
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 20rem;">
+      <div class="card-header"><h1 style="color:#000000;">{{location}}</h1></div>
+      <div class="card-body">
+        <!-- CURRENT WEATHER -->
+        <div class="row">
+          <div class="col-sm align-bottom"><h1 style="color:#000000;">{{temp_now|int}}°F</h1></div>
+          <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div> <!-- ICON(S) -->
+        </div>
+        <div class="row">
+          <div class="col-auto" style="margin-top: -8px; padding-bottom: 10px;">
+            <h6 class="text-muted">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
+          </div>
+        </div>
+        <!-- HI / LOW TEMPS -->
+        <div class="row" style="padding-bottom: 10px;">
+          <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</h5></div>
+          <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</h5></div>
+        </div>
 
-	  <!-- UPDATE WEATHER -->
-	  <form action="/" method="POST">
-	    <div class="form-row" style="margin: 0 auto;">
-	      <div class="col-auto"><input type="text" name="new_location" placeholder="{{location}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
-	      <div class="col-auto"><button type="submit" class="btn btn-info btn-sm" style="width: 2rem;"><i class="fas fa-cog"></i></button></div> <!-- fa-redo -->
-	    </div>
-	  </form>
-	</div>
+        {% set msgs = get_flashed_messages(category_filter=["location"]) %}
+        {% for msg in msgs %}
+        <div class="alert-danger text-center" style="padding: 5px; margin-bottom: 20px; "><small>{{ msg }}</small></div>
+        {% endfor %}
+
+        <!-- UPDATE WEATHER -->
+        <form action="/" method="POST">
+          <div class="form-row" style="margin: 0 auto;">
+            <div class="col-auto"><input type="text" name="new_location" placeholder="{{location}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
+            <div class="col-auto"><button type="submit" class="btn btn-info btn-sm" style="width: 2rem;"><i class="fas fa-cog"></i></button></div> <!-- fa-redo -->
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
-  <br>
-  <br>
+<br>
+<br>
 
-  <div class = "row justify-content-center">
-    &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
-  </div>
-  <div class = "row justify-content-center">
-    <p>Stock Data provided for free by <a href="https://iextrading.com/developer/">IEX</a>. View <a href="https://iextrading.com/developer">IEX’s Terms of Use</a>.</p>
-  </div>
+<div class = "row justify-content-center">
+  &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
+</div>
+<div class = "row justify-content-center">
+  <p>Stock Data provided for free by <a href="https://iextrading.com/developer/">IEX</a>. View <a href="https://iextrading.com/developer">IEX’s Terms of Use</a>.</p>
+</div>
 </div>
 
 </body>

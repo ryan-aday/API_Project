@@ -7,15 +7,15 @@
   <!-- Bootstrap CSS -->
   <link rel="icon" type="image/png" href="http://www.stuycs.org/_/rsrc/1519678307617/config/customLogo.gif?revision=2">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <title>Stocks! | CHoices</title>
+  <title>Stocks! | Choices</title>
   <style>
-    body{
+  body{
     background-color: #E0EEEE;
     font-family: Verdana, sans-serif;
-    }
-    h1{
-      font-weight=bold;
-    }
+  }
+  h1{
+    font-weight=bold;
+  }
 
 
   </style>
@@ -33,51 +33,51 @@
 
     <br>
     <div class="container">
-    {% if M %}
+      {% if M %}
 
-    <h2 class="d-flex justify-content-center">Choices of Stocks</h2>
-    <p>What stock did you want?</p>
-    <form action="/" method="POST">
-      <select class="form-control form-control-lg  col-md-12" name="symbl">
-        {% for S in M %}
-        <!--input type="radio" name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</input-->
-        <option name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</option>
+      <h2 class="d-flex justify-content-center">Choices of Stocks</h2>
+      <p>What stock did you want?</p>
+      <form action="/" method="POST">
+        <select class="form-control form-control-lg  col-md-12" name="symbl">
+          {% for S in M %}
+          <!--input type="radio" name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</input-->
+          <option name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</option>
 
-        <br>
-        {% endfor %}
-      </select>
-      <div class="input-append">
-        <input type="submit" class="btn btn-primary" name="select">
-      </div>
-    </form>
-    {% else %}
-    <div class="row justify-content-md-center">
-      <div class="col-md-auto">
-        <div class="alert alert-warning" role="alert">
-          <h2> No Matching Results</h2>
+          <br>
+          {% endfor %}
+        </select>
+        <div class="input-append">
+          <input type="submit" class="btn btn-primary" name="select">
+        </div>
+      </form>
+      {% else %}
+      <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+          <div class="alert alert-warning" role="alert">
+            <h2> No Matching Results</h2>
+          </div>
         </div>
       </div>
+      {% endif %}
     </div>
-    {% endif %}
-  </div>
     <br><br>
 
     {% if dbstocks!=[""] %}
     <h1 class="d-flex justify-content-center"> What stock do you want to remove?</h1>
     <p> (These include stocks that are added directly when your quotas are used up, and those that may not show up in your index page)</p>
     <p> Remove them at Will!</p>
-    <center><form action="/rmChoices">
-      <select class="form-control-lg" name="rm">
-        {% for s in dbstocks %}
-
-        <!--input type="radio" name="rm" value={{s}}>{{s}}</input-->
-        <option value={{s}}> {{s}} </option>
+    <center>
+      <form action="/rmChoices">
+        <select class="form-control-lg" name="rm">
+          {% for s in dbstocks %}
+          <option value={{s}}> {{s}} </option>
+          <br>
+          {% endfor %}
+        </select>
         <br>
-        {% endfor %}
-      </select>
-      <br>
-      <input type="submit" name="submit" class="btn btn-primary"></input>
-    </form></center>
+        <input type="submit" name="submit" class="btn btn-primary"></input>
+      </form>
+    </center>
     {% endif %}
 
 

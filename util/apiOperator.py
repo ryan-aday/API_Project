@@ -31,7 +31,7 @@ def stockRetrieve(names):
     sym=symb[:-1]'''
     typ ='types=quote'
     d = apiRetrieve(URL_STUB, symb+'&'+typ) #what we recieve from api
-    
+
     D = [] #list with more useful information
     """[name, latestPrice, percentChange, priceChange, currPrice, compName] """
     """ 0           1          2                 3       4           5      """
@@ -44,17 +44,17 @@ def stockRetrieve(names):
     return D
 
 def alphaVantSearch(query):
-    
+
     '''
     searching function from alpha Vantage, 5/min, 500/day
     query must be non-empty
     returns empty list if none matched,
     else return list of [[symbol, name]]
     '''
-    
-    
+
+
     fread=getApiKey('AlphaVantageKey')
-    
+
     URL='https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={}&apikey={}'.format(query,fread)
 
     try:
@@ -68,12 +68,10 @@ def alphaVantSearch(query):
         return [['Note:' + d['Note'] + '-- AlphaVantage  Your choice has automatically been added to your database regardless of its validity'],query]#triple list to match other return
     if 'Error Message' in d.keys():
         return[['Note:' + d['Error Message']+" Your choice is directly added to the database regardless of its validity."], query]
-    
+
     listOfMatches = []
     for entry in d['bestMatches']:
         if entry['1. symbol'].find('.') <0:
             listOfMatches.append([entry['1. symbol'], entry['2. name']])
 
     return listOfMatches
-
-

@@ -84,7 +84,7 @@ qianZ -- 2018-11-26
 experiment with database stocks display
 
 claraM -- 2018-11-27 13:19
-Form now retrieves the appropriate information from the API. Created a new template file, selection.html, that displays this requested information. 
+Form now retrieves the appropriate information from the API. Created a new template file, selection.html, that displays this requested information.
 
 ryanA -- 2018-11-27 12:35
 Can't use collapse, sticking to using dropdowns for the form.  Added mock for weather to be finished later.
@@ -101,10 +101,10 @@ incorporated trial remove function to remove unwanted stocks; bad aesthetical di
 tried to add some preemptive measures against potential bugs
 
 rachelN -- 2018-11-28 16:45
-Finished fixing form for changing location of weather report. Stores location in sessions. 
+Finished fixing form for changing location of weather report. Stores location in sessions.
 
 claraM - 2018-11-27
-Continued working on storing data in database and fixed errors. 
+Continued working on storing data in database and fixed errors.
 
 claraM - 2018-11-28
 Created second template file called selections.html to display the requested informations from the file.
@@ -117,13 +117,13 @@ templating for Choices.html
 
 ALL: 2018-11-30:
 Decided against storing JSON data in database because of the difficulty of storing
-a dictionary as a string and then getting the string back into a dictionary. 
+a dictionary as a string and then getting the string back into a dictionary.
 
 claraM - 2018-12-03:
 Integrated news with main app.py, and made changed to index.html to allow for this
 
 rachelN -- 2018-12-03 23:00
-Fixed weather card in app.py, the form now works! With sessions! Uses "GET" method. 
+Fixed weather card in app.py, the form now works! With sessions! Uses "GET" method.
 Added some comments + fixed formatting in templates/index.html and app.py
 
 claraM - 2018-12-04:
@@ -139,3 +139,7 @@ apiKey error flashing
 rachelN -- 2018-12-05 10:30
 Location error flashing within weather card, doesn't flash to apiKey error flashing
 
+ryanA -- 2018-12-06 06:05
+Made requirements.txt.  Reformatted news_form, added remove category form.
+Issues with seeing removed categories on index.html.
+  

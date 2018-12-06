@@ -2,47 +2,76 @@
 <html>
 
 
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="icon" type="image/png" href="http://www.stuycs.org/_/rsrc/1519678307617/config/customLogo.gif?revision=2">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-M\
-Cw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Choose News Category</title>
-    <style>
-      body{
-      background-color: #E0EEEE;
-      font-family: Verdana, sans-serif;
-      }
-    </style>
-  </head>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="icon" type="image/png" href="http://www.stuycs.org/_/rsrc/1519678307617/config/customLogo.gif?revision=2">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-M\
+  Cw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <title>Choose News Category</title>
+  <style>
+  body{
+    background-color: #E0EEEE;
+    font-family: Verdana, sans-serif;
+  }
+  </style>
+</head>
 
-  <body>
+<body>
 
-    <div class="container">
-      <div class="d-flex justify-content-center" style="font-weight:bold; color:white;">
-        <a href="/" style="background-color: #008080;" class="btn btn-primary"> <h3>Return to Updates</h3> </a>
-      </div>
+  <div class="container">
+    <div class="d-flex justify-content-center" style="font-weight:bold; color:white;">
+      <a href="/" style="background-color: #008080;" class="btn btn-primary"> <h3>Return to Updates</h3> </a>
     </div>
+  </div>
 
-    <br>
-    <div class = "container">
-      <h2 style="text-align:center;">Choices of News Categories</h2>
+  <br>
+  <div class = "container">
+    <h2 style="text-align:center;">Choices of News Categories</h2>
     <br>
     <p style="text-align:center;">
-    Here are the current news catgeories featured on The Guardian. <br/>
-    Which category do you wish to see displayed on your home screeen?
-  </p>
+      Here are the current news catgeories featured on The Guardian. <br/>
+      Which category do you wish to see displayed on your home screeen?
+    </p>
 
-    <form action = "/category" method = "POST" style="text-align:center;">
-      {% for i in section %}
-      <input class="form-check-input" type = "radio" name = "category" value = "{{i}}" > {{i}} <br>
-      {% endfor %}
-      <input type="submit" class="btn btn-primary" name="select">
-      
-    </form>
-    </div>
-  </body>
+    <center>
+      <form action = "/category" method = "POST" style="text-align:center;">
+        <select class="form-control-lg" name="category">
+          {% for i in section %}
+
+          <option value={{i}}> {{i}} </option>
+          <br>
+          {% endfor %}
+        </select>
+        <br>
+        <input type="submit" name="submit" class="btn btn-primary"></input>
+      </form>
+    </center>
+  </div>
+
+  <div class="container">
+    <h2 style="text-align:center;">Remove Your Categories</h2>
+    <br>
+    <p style="text-align:center;">
+      Here are your current news catgeories featured on The Guardian. <br/>
+      Which category do you wish to remove from your home screeen?
+    </p>
+
+    <center>
+      <form action="/removingnews">
+        <select class="form-control-lg" name="rmnews">
+          {% for s in session['category'] %}
+
+          <option value={{s}}> {{s}} </option>
+          <br>
+          {% endfor %}
+        </select>
+        <br>
+        <input type="submit" name="submit" class="btn btn-primary"></input>
+      </form>
+    </center>
+  </div>
+</body>
 </html>

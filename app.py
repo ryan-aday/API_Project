@@ -80,7 +80,7 @@ def root():
         open_weather = open_weather['list'][0]
 
 
-        
+
     # checks if symbol is in keys
     if (request.method != 'GET'):
         if 'symbl' in request.form.keys():
@@ -105,10 +105,10 @@ def root():
             c = list(s)[0]
             category = [c]
 
-        else: 
+        else:
             print("found app.py", session['category'])
             category = session['category']
-            
+
     except:
         flash("PLEASE ADD YOUR Guardian API key!")
         category='No api key!'
@@ -118,7 +118,7 @@ def root():
         }}}
 
 
-    
+
     return render_template("index.html",
                            location = open_weather['name'],
                            weather_main = open_weather['weather'],
@@ -185,10 +185,10 @@ def get_category():
 
     if not('category' in session):
         session['category'] = []
-    
+
     if request.method == "POST":
         category = request.form.get("category")
-             
+
     print("should be adding", category)
     session['category'].append(category)
     #session['category'].append("hello")
@@ -196,6 +196,21 @@ def get_category():
     print("now is, ",session['category'])
     return redirect('/')
 
+@app.route("/removingnews", methods = ["GET"])
+def rm_news():
+    q=request.args.get('rmnews')
+    if q:
+        #session['category'].pop(session['category'].index(q))
+        #fix = join(session['category'])
+        #session['category']=fix
+
+        #ISSUES with cards not disappearing, speculated that funcction simply redirects
+        print(q)
+        session['category'].remove(q)
+        print(session['category'])
+        return redirect('/')
+    else:
+        return redirect('/')
 
 if __name__ == "__main__":
     app.debug = True
