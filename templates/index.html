@@ -88,47 +88,53 @@
 
 <br>
 
-<!-- STOCKS -->
-<div class="container">
-  <div  class="d-flex justify-content-center">
-    <div class="row">
-      <!-- STOCK CARDS -->
-      {% for item in entry %}
-      <div class="card" style="width: 18rem;">
-        <div class="card-header">
-          <h1>{{item[0]}}</h1><!-- STOCK SYMBOLS -->
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{item[5]}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
-          <div class="row">
-          </div>
-          <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- CURRENT PRICE -->
-          <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- CHANGE IN PRICE-->
-          <div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
-        </div>
-      </div>
-      {% endfor %}
-      <br/>
-      <br/>
-    </div>
-  </div>
-</div>
-
-<br>
-
-<!-- NEWS -->
 <div class="container">
   <div class="d-flex justify-content-center">
     <div class="row">
+
+      <div class="card" style="width: 20rem;">
+        <div class="card-header"><h1 style="color:#000000;">{{location}}</h1></div>
+        <div class="card-body">
+          <!-- CURRENT WEATHER -->
+          <div class="row">
+            <div class="col-sm align-bottom"><h1 style="color:#000000;">{{temp_now|int}}°F</h1></div>
+            <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div> <!-- ICON(S) -->
+          </div>
+          <div class="row">
+            <div class="col-auto" style="margin-top: -8px; padding-bottom: 10px;">
+              <h6 class="text-muted">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
+            </div>
+          </div>
+          <!-- HI / LOW TEMPS -->
+          <div class="row" style="padding-bottom: 10px;">
+            <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</h5></div>
+            <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</h5></div>
+          </div>
+
+          {% set msgs = get_flashed_messages(category_filter=["location"]) %}
+          {% for msg in msgs %}
+          <div class="alert-danger text-center" style="padding: 5px; margin-bottom: 20px; "><small>{{ msg }}</small></div>
+          {% endfor %}
+
+          <!-- UPDATE WEATHER -->
+          <form action="/" method="POST">
+            <div class="form-row" style="margin: 0 auto;">
+              <div class="col-auto"><input type="text" name="new_location" placeholder="{{location}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
+              <div class="col-auto"><button type="submit" class="btn btn-info btn-sm" style="width: 2rem;"><i class="fas fa-cog"></i></button></div> <!-- fa-redo -->
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- NEWS -->
       {%for j in category %}
 
       <div class="card" style="width: 18rem;">
         <div class="card-header">
           <!--News category:<br>-->
-          <h1 style="color: #0028e4; font-weight:bold;">
+          <h2 style="color: #0028e4; font-weight:bold;">
             {{j}}
-          </h1>
+          </h2>
         </div>
         <div class="card-body">
 
@@ -151,43 +157,29 @@
 
 <br>
 
-<!-- WEATHER -->
-
+<!-- STOCKS -->
 <div class="container">
-
-  <div class="d-flex justify-content-center">
-    <div class="card" style="width: 20rem;">
-      <div class="card-header"><h1 style="color:#000000;">{{location}}</h1></div>
-      <div class="card-body">
-        <!-- CURRENT WEATHER -->
-        <div class="row">
-          <div class="col-sm align-bottom"><h1 style="color:#000000;">{{temp_now|int}}°F</h1></div>
-          <div class="col-sm text-right align-bottom"><h2>{% for i in weather_main %}<i class="fas fa-{{icons[i.icon]}}"></i>{% if not loop.last %} {% endif %}{% endfor %}</h2></div> <!-- ICON(S) -->
+  <div  class="d-flex justify-content-center">
+    <div class="row">
+      <!-- STOCK CARDS -->
+      {% for item in entry %}
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          <h1 style="font-weight:bold; color:#3CB371">{{item[0]}}</h1><!-- STOCK SYMBOLS -->
         </div>
-        <div class="row">
-          <div class="col-auto" style="margin-top: -8px; padding-bottom: 10px;">
-            <h6 class="text-muted">{% for i in weather_main %}{{ i.main }}{% if not loop.last %}, {% endif %}{% endfor %}</h6>
+        <div class="card-body">
+          <h5 class="card-title">{{item[5]}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{where_sold}}</h6>
+          <div class="row">
           </div>
+          <div class="col-sm align-bottom"><i class="price"></i> Current Price:  ${{item[1]}} </div><!-- CURRENT PRICE -->
+          <div class="col-sm align-bottom"><i class="change_in_price"></i>Change In Price:   ${{item[3]}}</div><!-- CHANGE IN PRICE-->
+          <div class="col-sm align-bottom"><i class="percent_change"></i>Percent Change:  {{item[2]}}%</div>
         </div>
-        <!-- HI / LOW TEMPS -->
-        <div class="row" style="padding-bottom: 10px;">
-          <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-high text-danger"></i> {{temp_max|int}}°F</h5></div>
-          <div class="col-sm align-bottom"><h5><i class="fas fa-temperature-low text-primary"></i> {{temp_min|int}}°F</h5></div>
-        </div>
-
-        {% set msgs = get_flashed_messages(category_filter=["location"]) %}
-        {% for msg in msgs %}
-        <div class="alert-danger text-center" style="padding: 5px; margin-bottom: 20px; "><small>{{ msg }}</small></div>
-        {% endfor %}
-
-        <!-- UPDATE WEATHER -->
-        <form action="/" method="POST">
-          <div class="form-row" style="margin: 0 auto;">
-            <div class="col-auto"><input type="text" name="new_location" placeholder="{{location}}" class="form-control form-control-sm" style="width: 14rem;"></input></div>
-            <div class="col-auto"><button type="submit" class="btn btn-info btn-sm" style="width: 2rem;"><i class="fas fa-cog"></i></button></div> <!-- fa-redo -->
-          </div>
-        </form>
       </div>
+      {% endfor %}
+      <br/>
+      <br/>
     </div>
   </div>
 </div>
@@ -201,10 +193,6 @@
 <div class = "row justify-content-center">
   <p>Stock Data provided for free by <a href="https://iextrading.com/developer/">IEX</a>. View <a href="https://iextrading.com/developer">IEX’s Terms of Use</a>.</p>
 </div>
-</div>
-
-<div class = "row justify-content-center">
-  &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
 </div>
 
 </body>

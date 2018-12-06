@@ -147,3 +147,7 @@ ryanA -- 2018-12-06 07:35
 Reformatted the templates.  Fixed removing category issue to rmnews fxn
 by adding sessions.modified=TRUE.  Thinking of keeping news in cards, but must
 change card column width to fit cards better.
+
+ryanA -- 2018-12-06 09:57
+Reformatted index.html, moved weather up next to news and stocks down, edited
+colors.
