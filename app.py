@@ -14,7 +14,8 @@ IPAPI = "https://ipapi.co/json/"
 # open weather api setup
 OPEN_WEATHER_URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
 OPEN_WEATHER_ADD = "&units=imperial"
-OPEN_WEATHER_API_KEY = "&appid="+apiOperator.getApiKey('OPEN_WEATHER_KEY')
+OPEN_WEATHER_API_KEY = "&appid="+apiOperator.getApiKey('OPEN_WEATHER_KEY_1')
+print('TEST: '+ OPEN_WEATHER_API_KEY)
 #87bdad31331cad64c1efc0c13526c6f8
 OPEN_WEATHER_TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
 
@@ -47,14 +48,14 @@ def root():
     # checks if city is in session -- sets default to city ip address is at if there is no current city
     if not('CITY' in session):
         IPAPI_response = urllib.request.urlopen(IPAPI).read()
-        IPAPI_dictionary = json.loads(IPAPI_response)
+        IPAPI_dictionary = json.loads(IPAPI_response.decode('utf-8'))
         IP_CITY = IPAPI_dictionary["city"]
         session['CITY'] = IP_CITY
 
     # update city
     if (request.form.get('new_location') != None):
         try: # if the city is an actual city
-            urllib.request.urlopen(OPEN_WEATHER_URL_STUB + request.form.get('new_location')  + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
+            urllib.request.urlopen(OPEN_WEATHER_URL_STUB+request.form.get('new_location')+ OPEN_WEATHER_ADD+OPEN_WEATHER_API_KEY)
             try: # if it's a zipcode (float, 5 digits), defaults to the US
                 float(request.form.get('new_location'))
                 if(len(request.form.get('new_location')) == 5):
@@ -69,7 +70,7 @@ def root():
 
 
     try:
-        open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB + urllib.parse.quote(session["CITY"]) + OPEN_WEATHER_ADD + OPEN_WEATHER_API_KEY)
+        open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB+urllib.parse.quote(session["CITY"])+OPEN_WEATHER_ADD+OPEN_WEATHER_API_KEY)
         open_weather = json.loads(open_weather_response.read())
     except:
         flash('PLEASE INSERT YOUR OPEN WEATHER KEY!')
@@ -96,7 +97,7 @@ def root():
         return redirect("/")
 
 
-    # the guardian api informtion 
+    # the guardian api informtion
     try:
         req = urllib.request.urlopen(GUARDIAN_URL)
         data = json.loads(req.read())
@@ -144,9 +145,9 @@ def choic():
     - allows user to choose stock choices from query in index.html
     - allows user to remove stocks they do not like
     '''
-    
+
     q = request.args.get('stock')#query for AlphaVantage search
-    
+
     dbstocks = api_to_db.retrieveStock().split(',')#stocks user has already chosen
 
     if q:#if query is not empty
@@ -163,25 +164,25 @@ def choic():
             #still adds the query searched (matches[1]) into user's choices, so if user enters valid options, stocks can still be displayed
 
             return render_template('choices.html', dbstocks=dbstocks)
-        
+
         #everything's normal, displays matches and stocks that can be deleted
         return render_template('choices.html', M=matches, dbstocks=dbstocks)
 
     else:
         #if query is empty, only show stocks user already chose and can delete
         return render_template('choices.html', dbstocks=dbstocks)
-    
+
 
 
 # to remove stocks from choices
 @app.route("/rmChoices", methods=["GET"])
 def rmChoic():
-    ''' 
+    '''
     process the user's request to remove the stock, redirects to index.html no matter what
     '''
 
     q=request.args.get('rm')#get the stock symbol to be removed
-    
+
     if q:# if not empty
         api_to_db.modifyStock(q,-1)#remove it
         return redirect('/')
@@ -210,12 +211,12 @@ def change_category():
 @app.route("/category", methods = ["POST"])
 def get_category():
 
-    
+
     #req = urllib.request.urlopen(GUARDIAN_URL)
     #news_data = json.loads(req.read())
     '''^^^ is above portion used in this fxn?'''
 
-    
+
     if not('category' in session):
         session['category'] = []
 

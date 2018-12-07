@@ -5,6 +5,7 @@ from urllib import request
 def getApiKey(filename):
     f=open('./keys/{}.txt'.format(filename))
     fread=f.read()
+    print(filename+"'s key: "+fread)
     f.close()
     return fread
 
@@ -14,7 +15,7 @@ def apiRetrieve(URL_STUB, URL_other):
     URL=URL_STUB+URL_other
     response = request.urlopen(URL)
     s = response.read()
-    d = json.loads(s)
+    d = json.loads(s.decode('utf-8'))
     return d
 
 # get stock info
