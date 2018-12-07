@@ -115,29 +115,33 @@ experiment with quota of AlphaVantage search, merge with api_to_db
 qianZ -- 2018-12-1 14:35
 templating for Choices.html
 
-ALL: 2018-11-30:
+ALL: 2018-11-30
 Decided against storing JSON data in database because of the difficulty of storing
 a dictionary as a string and then getting the string back into a dictionary.
 
-claraM - 2018-12-03:
+claraM - 2018-12-03
 Integrated news with main app.py, and made changed to index.html to allow for this
 
 rachelN -- 2018-12-03 23:00
 Fixed weather card in app.py, the form now works! With sessions! Uses "GET" method.
 Added some comments + fixed formatting in templates/index.html and app.py
 
-claraM - 2018-12-04:
+claraM - 2018-12-04
 Integrated the news form with app.py, and created news_form.html to facilitate this in templates
 Added bootstrap to news_form.html
 
 rachelN -- 2018-12-04 12:53
 Changed weather form method back to "POST"
 
-qianZ - 2018-12-05:
+qianZ - 2018-12-05
 apiKey error flashing
 
 rachelN -- 2018-12-05 10:30
 Location error flashing within weather card, doesn't flash to apiKey error flashing
+
+claraM -- 2018-12-05
+Worked on creating a session['category'] list for the user.
+This is in order to save which categories the user wants to have, and so that there can be multiple categories.
 
 ryanA -- 2018-12-06 06:05
 Made requirements.txt.  Reformatted news_form, added remove category form.
@@ -151,3 +155,7 @@ change card column width to fit cards better.
 ryanA -- 2018-12-06 09:57
 Reformatted index.html, moved weather up next to news and stocks down, edited
 colors.
+
+claraM -- 2018-12-06
+Worked on bug fixes for when news categories are more than one word.
+
