@@ -117,7 +117,7 @@ def root():
     except:
         # make user get their own API key
         flash("PLEASE ADD YOUR Guardian API key!")
-        category='No api key!'
+        category=['No Guardian api key!']
         data={'response':{'result':{'sectionName':'No api key!',
                                     'webURL':'/',
                                     'webTitle':'NO API KEY!'
@@ -140,31 +140,50 @@ def root():
 
 @app.route("/choices", methods=["GET"])
 def choic():
+    '''
+    - allows user to choose stock choices from query in index.html
+    - allows user to remove stocks they do not like
+    '''
+    
+    q = request.args.get('stock')#query for AlphaVantage search
+    
+    dbstocks = api_to_db.retrieveStock().split(',')#stocks user has already chosen
 
-    q = request.args.get('stock')
-    dbstocks = api_to_db.retrieveStock().split(',')
-    if q:
+    if q:#if query is not empty
+
         matches=apiOperator.alphaVantSearch(q)
+        #search for matches to query from AphaVantage
+
         if matches and matches[0][0].find('Note')==0:
-            flash(matches[0][0])
+            '''if there's a 'Note' in matches,  user has used up his quota'''
+
+            flash(matches[0][0])#flashes the error returned by AlphaVantage
+
             api_to_db.modifyStock(matches[1],1)
+            #still adds the query searched (matches[1]) into user's choices, so if user enters valid options, stocks can still be displayed
 
             return render_template('choices.html', dbstocks=dbstocks)
-
+        
+        #everything's normal, displays matches and stocks that can be deleted
         return render_template('choices.html', M=matches, dbstocks=dbstocks)
+
     else:
-        """ONLY DELETING"""
+        #if query is empty, only show stocks user already chose and can delete
         return render_template('choices.html', dbstocks=dbstocks)
-        #return redirect('/')
+    
 
 
 # to remove stocks from choices
 @app.route("/rmChoices", methods=["GET"])
 def rmChoic():
+    ''' 
+    process the user's request to remove the stock, redirects to index.html no matter what
+    '''
 
-    q=request.args.get('rm')
-    if q:
-        api_to_db.modifyStock(q,-1)
+    q=request.args.get('rm')#get the stock symbol to be removed
+    
+    if q:# if not empty
+        api_to_db.modifyStock(q,-1)#remove it
         return redirect('/')
     else:
         return redirect('/')
@@ -174,21 +193,29 @@ def rmChoic():
 # based on current selections of news categories
 @app.route("/news_choice", methods = ["GET"])
 def change_category():
-    req = urllib.request.urlopen(GUARDIAN_URL)
-    news_data = json.loads(req.read())
-    l = news_data['response']['results']
-    s = set()
-    for i in l:
-        s.add(i['sectionName'])
-    return render_template("news_form.html", data = news_data, section = s)
+    try:
+        req = urllib.request.urlopen(GUARDIAN_URL)
+        news_data = json.loads(req.read())
+        l = news_data['response']['results']
+        s = set()
+        for i in l:
+            s.add(i['sectionName'])
+        return render_template("news_form.html", data = news_data, section = s)
+    except:
+        flash('Please add your Guardian API key!')
+        return render_template('news_form.html')
 
 # get selection
 # update session['category']
 @app.route("/category", methods = ["POST"])
 def get_category():
-    req = urllib.request.urlopen(GUARDIAN_URL)
-    news_data = json.loads(req.read())
 
+    
+    #req = urllib.request.urlopen(GUARDIAN_URL)
+    #news_data = json.loads(req.read())
+    '''^^^ is above portion used in this fxn?'''
+
+    
     if not('category' in session):
         session['category'] = []
 

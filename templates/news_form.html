@@ -26,6 +26,20 @@
       <a href="/" style="background-color: #008080;" class="btn btn-primary"> <h3>Return to Updates</h3> </a>
     </div>
   </div>
+  
+  <div class="container">
+    {% with msgs = get_flashed_messages(category_filter=["message"]) %}
+    {% if msgs %}
+    {% for message in msgs %}
+    <div class="alert alert-danger justify-content-center">
+      {{ message }}
+      <br>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
+
 
   <br>
   <div class = "container">
