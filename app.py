@@ -14,7 +14,7 @@ IPAPI = "https://ipapi.co/json/"
 # open weather api setup
 OPEN_WEATHER_URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
 OPEN_WEATHER_ADD = "&units=imperial"
-OPEN_WEATHER_API_KEY = "&appid="+apiOperator.getApiKey('OPEN_WEATHER_KEY_1')
+OPEN_WEATHER_API_KEY = "&appid="+apiOperator.getApiKey('OPEN_WEATHER_KEY')
 print('TEST: '+ OPEN_WEATHER_API_KEY)
 #87bdad31331cad64c1efc0c13526c6f8
 OPEN_WEATHER_TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
