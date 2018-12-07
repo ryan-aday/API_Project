@@ -8,14 +8,17 @@ from util import apiOperator, api_to_db
 app = Flask(__name__)  # create instance of class Flask
 app.secret_key = urandom(32)
 
+# api for IP address
 IPAPI = "https://ipapi.co/json/"
 
+# open weather api setup
 OPEN_WEATHER_URL_STUB = "http://api.openweathermap.org/data/2.5/weather?q="
 OPEN_WEATHER_ADD = "&units=imperial"
 OPEN_WEATHER_API_KEY = "&appid="+apiOperator.getApiKey('OPEN_WEATHER_KEY')
 #87bdad31331cad64c1efc0c13526c6f8
 OPEN_WEATHER_TEST_MULT = "https://samples.openweathermap.org/data/2.5/find?q=London&appid=b1b15e88fa797225412429c1c50c122a1r&units=imperial"
 
+# icons for weather updates
 icons = {'01d': "sun", '01n': "moon", # clear sky
          '02d': "cloud-sun", '02n': "cloud-moon", # few clouds
          '03d': "cloud-sun", '03n': "cloud-moon", # scattered clouds
@@ -27,15 +30,17 @@ icons = {'01d': "sun", '01n': "moon", # clear sky
          '50d': "smog", '50n': "smog", # mist
 }
 
+# the guardian api setup
 GUARDIAN_KEY = apiOperator.getApiKey('Guardian_Key')
-#"697684d3-9e9e-45e8-b3a4-b28ed5a741d9"
 GUARDIAN_STUB = "https://content.guardianapis.com/search?api-key="
 GUARDIAN_URL =  GUARDIAN_STUB + GUARDIAN_KEY
 
+# create database for stocks if it doesn't already exist
 try: api_to_db.createTable()
 except: pass
 api_to_db.createStockRow()
 
+# root function for index.html
 @app.route("/", methods=['GET','POST'])
 def root():
 
@@ -91,26 +96,26 @@ def root():
         return redirect("/")
 
 
+    # the guardian api informtion 
     try:
         req = urllib.request.urlopen(GUARDIAN_URL)
         data = json.loads(req.read())
-        l = data['response']['results']
+        l = data['response']['results'] # the specific part that contains news headlines
         s = set()
         for i in l:
             s.add(i['sectionName'])
-
-        if not 'category' in session:
+        if not 'category' in session: #if session['category'] not already defined
             # get random from set (ensure that default category exists)
             # categories are not constant.
             c = list(s)[0]
             category = [c]
             session['category'] = category
-
         else:
-            print("found app.py", session['category'])
+            # category is session['category'] if already defined
             category = session['category']
 
     except:
+        # make user get their own API key
         flash("PLEASE ADD YOUR Guardian API key!")
         category='No api key!'
         data={'response':{'result':{'sectionName':'No api key!',
@@ -119,7 +124,7 @@ def root():
         }}}
 
 
-
+    # render template
     return render_template("index.html",
                            location = open_weather['name'],
                            weather_main = open_weather['weather'],
@@ -153,7 +158,7 @@ def choic():
         #return redirect('/')
 
 
-
+# to remove stocks from choices
 @app.route("/rmChoices", methods=["GET"])
 def rmChoic():
 
@@ -196,6 +201,7 @@ def get_category():
     print("now is, ",session['category'])
     return redirect('/')
 
+# remove news categories from session['category'] through form
 @app.route("/removingnews", methods = ["GET"])
 def rm_news():
     q=request.args.get('rmnews')
@@ -209,6 +215,7 @@ def rm_news():
     else:
         return redirect('/')
 
+# run app
 if __name__ == "__main__":
     app.debug = True
     app.run()
