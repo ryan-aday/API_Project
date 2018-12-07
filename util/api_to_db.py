@@ -1,5 +1,6 @@
 import sqlite3
 
+# name of database file
 DB_FILE = "./data/database.db"
 
 # function to create a table for apis
