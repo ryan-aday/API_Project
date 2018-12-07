@@ -1,13 +1,14 @@
 import json
 from urllib import request
 
-
+# get api key from keys directory
 def getApiKey(filename):
     f=open('./keys/{}.txt'.format(filename))
     fread=f.read()
     f.close()
     return fread
 
+# get json from api
 def apiRetrieve(URL_STUB, URL_other):
     '''general api retrieval function'''
     URL=URL_STUB+URL_other
@@ -16,6 +17,7 @@ def apiRetrieve(URL_STUB, URL_other):
     d = json.loads(s)
     return d
 
+# get stock info
 def stockRetrieve(names):
     '''
     specific IEX retrieval function
@@ -43,6 +45,7 @@ def stockRetrieve(names):
     #print("++++++++++")
     return D
 
+# search through alpha vantage to see if there are stocks that match
 def alphaVantSearch(query):
 
     '''
