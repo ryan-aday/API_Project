@@ -72,6 +72,10 @@ def root():
     try:
         open_weather_response = urllib.request.urlopen(OPEN_WEATHER_URL_STUB+urllib.parse.quote(session["CITY"])+OPEN_WEATHER_ADD+OPEN_WEATHER_API_KEY)
         open_weather = json.loads(open_weather_response.read())
+        # checks if there's multiple weather types
+        if 'count' in open_weather:
+            open_weather = open_weather['list'][0]
+
     except:
         flash('PLEASE INSERT YOUR OPEN WEATHER KEY!')
         open_weather={'main':{'temp':'-998',
@@ -80,11 +84,6 @@ def root():
                       'weather':[{'icon':'50n', 'main':'API KEY!'}],
                       'name':'No Api Key!'
                       }
-
-    # checks if there's multiple weather types
-    if 'count' in open_weather:
-        open_weather = open_weather['list'][0]
-
 
 
     # checks if symbol is in keys
