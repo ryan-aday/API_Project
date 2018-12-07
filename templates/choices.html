@@ -27,31 +27,49 @@
 <body>
   <div class="container">
     <div class="d-flex justify-content-center" style="font-weight:bold; color:white;">
+      <!-- return button -->
       <a href="/" style="background-color: #008080;" class="btn btn-primary"> <h3>Return to Updates</h3> </a>
     </div>
+    
   </div>
+  
   <div class="container">
 
+    <div class="container"><!-- flash for no api key-->
+      {% with msgs = get_flashed_messages(category_filter=["message"]) %}
+      {% if msgs %}
+      {% for message in msgs %}
+      <div class="alert alert-danger justify-content-center">
+	{{ message }}
+	<br>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div><!-- end flash for no api key-->
 
     <br>
     <div class="container">
-      {% if M %}
+      {% if M %}<!-- if there are matches-->
 
       <h2 class="d-flex justify-content-center">Choices of Stocks</h2>
       <p>What stock did you want?</p>
-      <form action="/" method="POST">
+
+      <form action="/" method="POST"><!-- drop down form for each option-->
         <select class="form-control form-control-lg  col-md-12" name="symbl">
           {% for S in M %}
           <option name="symbl" value={{S[0]}}>{{S[1]}}:{{S[0]}}</option>
-
+	  <!-- S[0] is symbol, S[1] is firm name-->
           <br>
           {% endfor %}
         </select>
-        <div class="input-append">
+
+	<div class="input-append"><!-- submit button-->
           <input type="submit" class="btn btn-primary" name="select">
         </div>
       </form>
-      {% else %}
+      
+      {% else %}<!-- no matching result-->
       <div class="row justify-content-md-center">
         <div class="col-md-auto">
           <div class="alert alert-warning" role="alert">
@@ -63,7 +81,7 @@
     </div>
     <br><br>
 
-    {% if dbstocks!=[""] %}
+    {% if dbstocks!=[""] %}<!-- if there are stocks you have choosen-->
     <h1 class="d-flex justify-content-center"> What stock do you want to remove?</h1>
     <p> (These include stocks that are added directly when your quotas are used up, and those that may not show up in your index page)<br/>
 
@@ -74,15 +92,21 @@
           <option value={{s}}> {{s}} </option>
           <br>
           {% endfor %}
+	  <!-- s is symbol for the stock-->
+	  
         </select>
         <br>
+	<!-- submit button-->
         <input type="submit" name="submit" class="btn btn-primary"></input>
       </form>
     </center>
     {% endif %}
+    
   </div><!-- end container -->
-  <br/>
-  <br/>
+  <br>
+  <br>
+  
+  <!-- footer-->
   <div class = "row justify-content-center">
     &copy; Ryan Aday, Clara Mohri, Rachel Ng, Qian Zhou (Team RanQuoR-Turkey)
   </div>
